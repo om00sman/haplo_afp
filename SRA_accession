@@ -1,3 +1,4 @@
+#!/bin/bash
 #SBATCH --job-name=SRA_accession
 #SBATCH --time=0-12:00:00 # Wall clock time limit in Days-Hours:min:seconds
 #SBATCH --output=SRA-%A_%a.out # output file
