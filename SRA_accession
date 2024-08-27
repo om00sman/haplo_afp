@@ -1,1 +1,12 @@
+#SBATCH --job-name=SRA_accession
+#SBATCH --time=0-12:00:00 # Wall clock time limit in Days-Hours:min:seconds
+#SBATCH --output=SRA-%A_%a.out # output file
+#SBATCH --error=SRA-%A_%a.err # error file
+#SBATCH --ntasks=1 # Run 1 job
+#SBATCH --ntasks-per-node=1 # one task per computer
+#SBATCH --cpus-per-task=1 # 1 CPUS per job
+#SBATCH --mem=12GB
 
+module load sratoolkit
+
+fasterq-dump -O /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi SRR27896878
