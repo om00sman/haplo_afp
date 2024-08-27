@@ -10,4 +10,4 @@
 
 module load sratoolkit
 
-fasterq-dump -O /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi SRR27896878
+fasterq-dump -O /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi SRR********
