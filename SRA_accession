@@ -8,20 +8,24 @@
 #SBATCH --cpus-per-task=8 
 #SBATCH --mem=100GB
 
+#define SRA accesion ID
+config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id
+id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $1}')
+
 #load required modules
 module load sratoolkit
 
 #make required directory and move to it
-mkdir /hb/scratch/omoosman/sra
+mkdir -p /hb/scratch/omoosman/sra
 cd /hb/scratch/omoosman/sra
 
 #prefetch accession into scratch
-prefetch SRRXXXXXXXXXX --max-size 100g  -O /hb/scratch/omoosman/sra 
+prefetch $id --max-size 100g  -O /hb/scratch/omoosman/sra 
 
 #convert to fastq from scratch directory 
-fasterq-dump SRRXXXXXXXXXX   
+fasterq-dump $id   
 
 #compress and copy files to correct directory
-gzip /hb/scratch/omoosman/sra/SRRXXXXXXXXXX/*.fastq 
-cp /hb/scratch/omoosman/sra/SRRXXXXXXXXXX/*.fastq.gz /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/
+gzip /hb/scratch/omoosman/sra/$id/*.fastq 
+cp /hb/scratch/omoosman/sra/$id/*.fastq.gz /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/
 
