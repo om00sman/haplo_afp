@@ -10,7 +10,7 @@
 
 #define SRA accesion ID
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id
-id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $1}')
+id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file")
 
 #load required modules
 module load sratoolkit
