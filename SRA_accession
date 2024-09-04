@@ -10,7 +10,8 @@
 
 #define SRA accesion ID
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id
-id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file")
+id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $1}'))
+name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
 
 #load required modules
 module load sratoolkit
@@ -27,6 +28,6 @@ fasterq-dump "$id"
 
 #compress and copy files to correct directory
 gzip /hb/scratch/omoosman/sra/*.fastq
-mkdir -p /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$id
-cp /hb/scratch/omoosman/sra/*.fastq.gz /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$id
+mkdir -p /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name
+cp /hb/scratch/omoosman/sra/*.fastq.gz /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name
 
