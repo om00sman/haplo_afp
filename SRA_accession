@@ -12,7 +12,8 @@
 module load sratoolkit
 
 #make required directory and move to it
-mkdir /hb/scratch/omoosman/sra && cd /hb/scratch/omoosman/sra
+mkdir /hb/scratch/omoosman/sra
+cd /hb/scratch/omoosman/sra
 
 #prefetch accession into scratch
 prefetch SRRXXXXXXXXXX --max-size 100g  -O /hb/scratch/omoosman/sra 
@@ -21,5 +22,6 @@ prefetch SRRXXXXXXXXXX --max-size 100g  -O /hb/scratch/omoosman/sra
 fasterq-dump SRRXXXXXXXXXX   
 
 #compress and copy files to correct directory
-gzip /hb/scratch/omoosman/sra/SRRXXXXXXXXXX/*.fastq | cp /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/
+gzip /hb/scratch/omoosman/sra/SRRXXXXXXXXXX/*.fastq 
+cp /hb/scratch/omoosman/sra/SRRXXXXXXXXXX/*.fastq.gz /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/
 
