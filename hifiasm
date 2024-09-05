@@ -1,22 +1,25 @@
 #!/bin/bash
 #SBATCH --job-name=zoarcoidei_hifiasm
-#SBATCH --partition=128x24
 #SBATCH --output=out/hifiasm_onlyhifi_species_%A_%a.out
 #SBATCH --error=err/hifiasm_onlyhifi_species_%A_%a.err
+#SBATCH --partition=128x24
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=120GB
 #SBATCH --time=5-00:00:00
 
-# Move directories
-cd /path/to/species/fastq.gz/data
-
 # Load dependencies
 module load miniconda3
-
 conda activate hifiasm
 
+#defining species name and path to fastq.gz
+config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
+name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
+file=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz)
+
+# Move directories
+cd /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name
+
 # hifi reads only
-hifiasm -o species_hifi.asm -t20 file_A_hifi.fastq.gz file_B_hifi.fastq.gz
-2> species_hifi.asm.log
+hifiasm -o "${name}_hifi.asm" -t20 "$file" 2> "${name}_hifi.asm.log"
