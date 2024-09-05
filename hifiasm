@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=species_hifiasm
+#SBATCH --job-name=zoarcoidei_hifiasm
 #SBATCH --partition=128x24
 #SBATCH --output=out/hifiasm_onlyhifi_species_%A_%a.out
 #SBATCH --error=err/hifiasm_onlyhifi_species_%A_%a.err
@@ -13,11 +13,10 @@
 cd /path/to/species/fastq.gz/data
 
 # Load dependencies
-module load miniconda3/3.12
+module load miniconda3
 
 conda activate hifiasm
 
 # hifi reads only
-hifiasm -o species_hifi.asm -t20 \
-file_A_hifi.fastq.gz file_B_hifi.fastq.gz \
+hifiasm -o species_hifi.asm -t20 file_A_hifi.fastq.gz file_B_hifi.fastq.gz
 2> species_hifi.asm.log
