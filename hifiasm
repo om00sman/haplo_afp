@@ -23,4 +23,4 @@ mkdir -p /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
 cd /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name
 
 # hifi reads only
-hifiasm -o "${name}_hifi.asm" -t20 "$file" 2> "${name}_hifi.asm.log"
+hifiasm -o /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm" -t20 "$file" 2> /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.log"
