@@ -16,7 +16,7 @@ conda activate hifiasm
 #defining species name and path to fastq.gz
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
 name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
-file=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz)
+file_numb=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | wc -l)
 echo "the file used is: $file"
 
 # Make out directory and move to directory with input files
@@ -25,3 +25,11 @@ cd /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name
 
 # hifi reads only
 hifiasm -o /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm" -t20 "$file" 2> /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.log"
+
+
+
+if [[ $file_num == 1 ]]; then
+  echo "there is one file"
+else
+  echo "there are two files"
+fi
