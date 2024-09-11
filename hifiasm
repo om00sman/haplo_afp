@@ -29,7 +29,7 @@ hifiasm -o /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi
 
 file_numb=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | wc -l)
 
-if [[ $file_num == 1 ]]; then
+if [[ $file_num -eq 1 ]]; then
   echo "there is one file"
 else
   echo "there are two files"
