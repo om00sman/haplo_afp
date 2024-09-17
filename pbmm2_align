@@ -15,7 +15,9 @@ module load miniconda3
 conda activate pbmm2
 
 #alignment
-pbmm2 align ref.fa in.fa out.bam
+pbmm2 align ref.fa in.fa out.bam --preset HIFI
 
+
+--sort
 
 --rg '@RG\tID:myid\tSM:mysample
