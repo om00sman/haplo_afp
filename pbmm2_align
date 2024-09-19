@@ -6,8 +6,8 @@
 #SBATCH --error=/hb/home/omoosman/owen/zoarcoidei/data/err_out/align/align_%A_%a.err
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=20
-#SBATCH --mem=100GB
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=64GB
 #SBATCH --time=5-00:00:00
 
 # Load dependencies
