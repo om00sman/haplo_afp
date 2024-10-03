@@ -25,12 +25,3 @@ cd /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name
 
 # hifi reads only
 hifiasm -o /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm" -t20 --write-paf "$file" 2> /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.log"
-
-##working on script for 2 files
-file_numb=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | wc -l)
-
-if [[ $file_num -eq 1 ]]; then
-  echo "there is one file"
-else
-  echo "there are two files"
-fi
