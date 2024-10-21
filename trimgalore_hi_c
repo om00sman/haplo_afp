@@ -16,6 +16,11 @@ module load trimgalore/0.6.10
 
 export LC_ALL=C
 
+#define SRA accesion ID & species name
+config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
+id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $1}')
+name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
+
 # Change to directory for files to be trimmed
 cd /path               
 
