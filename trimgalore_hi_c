@@ -1,1 +1,39 @@
+#!/bin/bash
+#SBATCH --job-name=trimgalore_hi_c
+#SBATCH --partition=128x24
+#SBATCH --output=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/trimgalore_hi_c/trim_galore_%A_%a.out
+#SBATCH --error=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/trimgalore_hi_c/trim_galore_%A_%a.err
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=8GB
+#SBATCH --time=5-00:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=omoosman@ucsc.edu
+
+# Load required modules
+module load trimgalore/0.6.10 
+
+export LC_ALL=C
+
+# Change to directory for files to be trimmed
+cd /path               
+
+# Define input and output directories
+input_dir=/path   
+output_dir=/path 
+fq_out_dir=/path
+
+rename_trim_out=/path
+rename_fq_out=/path
+
+# Define the list of input files
+input_files=/path       # Fill in new pathway 
+
+read1=$(sed -n "${SLURM_ARRAY_TASK_ID}p" $input_files | awk '{print $1}')
+read2=$(sed -n "${SLURM_ARRAY_TASK_ID}p" $input_files | awk '{print $2}')
+
+
+# Run Trim Galore
+trim_galore --quality 20 --illumina --length 20 --fastqc --fastqc_args "--nogroup -t 2 --outdir ${fq_out_dir}" --output_dir $output_dir --paired $read1 $read2
 
