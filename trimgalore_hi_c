@@ -26,11 +26,8 @@ cd /path
 
 # Define input and output directories
 input_dir=/path   
-output_dir= 
+output_dir=/hb/home/omoosman/owen/zoarcoidei/analysis/trimmed_hi_c/
 fq_out_dir=/path
-
-rename_trim_out=/path
-rename_fq_out=/path
 
 # Define the list of input files
 input_files=/path       # Fill in new pathway 
