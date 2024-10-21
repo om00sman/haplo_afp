@@ -26,7 +26,7 @@ cd /path
 
 # Define input and output directories
 input_dir=/path   
-output_dir=/hb/home/omoosman/owen/zoarcoidei/analysis/trimmed_hi_c/
+output_dir=/hb/home/omoosman/owen/zoarcoidei/analysis/trimmed_hi_c/$name
 fq_out_dir=/path
 
 # Define the list of input files
@@ -37,5 +37,5 @@ read2=$(sed -n "${SLURM_ARRAY_TASK_ID}p" $input_files | awk '{print $2}')
 
 
 # Run Trim Galore
-trim_galore --quality 20 --illumina --length 20 --fastqc --fastqc_args "--nogroup -t 2 --outdir ${fq_out_dir}" --output_dir $output_dir --paired $read1 $read2
+trim_galore --quality 20 --illumina --length 20 --fastqc --fastqc_args "--nogroup -t 4 --outdir $output_dir" --output_dir $output_dir --paired $read1 $read2
 
