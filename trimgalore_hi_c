@@ -19,21 +19,16 @@ config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
 id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $1}')
 name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
 
-# Change to directory for files to be trimmed
-cd /path               
-
-# Define input and output directories
-input_dir=/path   
+# Define output directories 
 output_dir=/hb/home/omoosman/owen/zoarcoidei/analysis/trimmed_hi_c/$name
-fq_out_dir=/path
+
+# Create output directory if it doesn't exist
+mkdir -p $output_dir
 
 # Define the list of input files
-input_files=/path       # Fill in new pathway 
-
-read1=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name/"{$id}_1.fastq.gz"
-read2=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name/"{$id}_2.fastq.gz"
-
+read1=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name/"${id}_1.fastq.gz"
+read2=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name/"${id}_2.fastq.gz"
 
 # Run Trim Galore
-trim_galore --quality 20 --illumina --length 20 --fastqc --fastqc_args "--nogroup -t 4 --outdir $output_dir" --output_dir $output_dir --paired $read1 $read2
+trim_galore --quality 20 --illumina --length 20 --fastqc --fastqc_args "--nogroup -t 2 --outdir $output_dir" --output_dir $output_dir --paired $read1 $read2
 
