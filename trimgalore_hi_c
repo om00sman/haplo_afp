@@ -30,8 +30,8 @@ fq_out_dir=/path
 # Define the list of input files
 input_files=/path       # Fill in new pathway 
 
-read1=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name/{$id}_1.fastq.gz
-read2=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name/{$id}_2.fastq.gz
+read1=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name/"{$id}_1.fastq.gz"
+read2=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name/"{$id}_2.fastq.gz"
 
 
 # Run Trim Galore
