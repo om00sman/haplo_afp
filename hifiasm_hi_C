@@ -26,8 +26,8 @@ h2=/hb/home/omoosman/owen/zoarcoidei/analysis/trimmed_hi_c/$name/"${id}_2_val_2.
 output=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
 
 # Make out directory and move to directory with input files
-mkdir -p /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
+mkdir -p "$output"
 cd /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name
 
 # hifi reads only
-hifiasm -o "${output}/"${name}_hifi.asm"" -t20 --write-paf --h1 "$h1" --h2 "$h2" "$input" 2> "${output}/"${name}_hifi.asm.log""
+hifiasm -o "${output}/${name}_hifi.asm" -t20 --write-paf --h1 "$h1" --h2 "$h2" "$input" 2> "${output}/${name}_hifi.asm.log"
