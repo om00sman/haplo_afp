@@ -26,8 +26,8 @@ output_dir=/hb/home/omoosman/owen/zoarcoidei/analysis/trimmed_hi_c/$name
 mkdir -p $output_dir
 
 # Define the list of input files
-read1=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name/"${id}_1.fastq.gz"
-read2=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name/"${id}_2.fastq.gz"
+read1=/hb/home/omoosman/owen/zoarcoidei/data/hi_c/$name/"${id}_1.fastq.gz"
+read2=/hb/home/omoosman/owen/zoarcoidei/data/hi_c/$name/"${id}_2.fastq.gz"
 
 # Run Trim Galore
 trim_galore --illumina --fastqc --fastqc_args "--nogroup --outdir $output_dir" --output_dir $output_dir --paired $read1 $read2
