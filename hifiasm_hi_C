@@ -21,13 +21,13 @@ id=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $1}')
 
 #define input and output files
 input=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz)
-h1=
-h2=
-output=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/
+h1=/hb/home/omoosman/owen/zoarcoidei/analysis/trimmed_hi_c/$name/"${id}_1_val_1.fq.gz" 
+h2=/hb/home/omoosman/owen/zoarcoidei/analysis/trimmed_hi_c/$name/"${id}_2_val_2.fq.gz" 
+output=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
 
 # Make out directory and move to directory with input files
 mkdir -p /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
 cd /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name
 
 # hifi reads only
-hifiasm -o "${output}/"${name}_hifi.asm"" -t20 --write-paf --h1 --h2 "$input" 2> "${output}/"${name}_hifi.asm.log""
+hifiasm -o "${output}/"${name}_hifi.asm"" -t20 --write-paf --h1 "$h1" --h2 "$h2" "$input" 2> "${output}/"${name}_hifi.asm.log""
