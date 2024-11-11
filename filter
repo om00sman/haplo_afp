@@ -6,8 +6,12 @@
 
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
 name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
+out=/hb/home/omoosman/owen/zoarcoidei/analysis/realignment/$name
+
+# Create the output directory 
+mkdir -p "$out"
 
 # extract read name and phasing information from haplotype specific .gfa files
 
-awk '{print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"
-awk '{print $5, $9}'
+awk '{print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_reads.txt"
+awk '{print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_reads.txt"
