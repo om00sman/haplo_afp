@@ -1,1 +1,7 @@
+## Realignment of haploptype specific reads to haplotype assemblies 
+
+# loading required modules
+
+# defining variables
+
 # extract read name and phasing information from haplotype specific .gfa files
