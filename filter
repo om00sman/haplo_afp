@@ -4,4 +4,10 @@
 
 # defining variables
 
+config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
+name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
+
 # extract read name and phasing information from haplotype specific .gfa files
+
+awk '{print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies/
+awk '{print $5, $9}'
