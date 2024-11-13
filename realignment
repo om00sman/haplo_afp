@@ -28,24 +28,46 @@ awk '$1 == "A" {print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies
 
 if [[ "$file2" == *.fastq.gz ]]; then
     ## extract haplotype specific sequence reads from .fastq file
-    #extract just readID from 
+    #extract just read ID for grep
+
     awk '{print 1}' "$out/${name}_hap1_reads.txt > "$out/${name}_hap1_grep.txt"
     awk '{print 1}' "$out/${name}_hap2_reads.txt > "$out/${name}_hap2_grep.txt"
 
-    seqkit grep -f "$out/${name}_hap1_grep.txt" $file1 -o "$out/${name}_hap1_file1_reads.fastq.gz"
-    seqkit grep -f "$out/${name}_hap2_grep.txt" $file1 -o "$out/${name}_hap2_file1_reads.fastq.gz"
-    seqkit grep -f "$out/${name}_hap1_grep.txt" $file1 -o "$out/${name}_hap1_file1_reads.fastq.gz"
-    seqkit grep -f "$out/${name}_hap2_grep.txt" $file1 -o "$out/${name}_hap2_file1_reads.fastq.gz"
+    #extract hap1 and hap2 reads from both input files
 
+    seqkit grep -f "$out/${name}_hap1_grep.txt" $file1 -o "$out/${name}_hap1_file1_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap2_grep.txt" $file1 -o "$out/${name}_hap2_file1_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap1_grep.txt" $file2 -o "$out/${name}_hap1_file2_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap2_grep.txt" $file2 -o "$out/${name}_hap2_file2_reads.fastq.gz"
+
+    #merge reads from each haplotype
+
+    zcat "$out/${name}_hap1_file1_reads.fastq.gz" "$out/${name}_hap1_file2_reads.fastq.gz" | gzip > "$out/${name}_hap1_reads.fastq.gz"
+    zcat "$out/${name}_hap2_file1_reads.fastq.gz" "$out/${name}_hap2_file2_reads.fastq.gz" | gzip > "$out/${name}_hap2_reads.fastq.gz"
+
+    #remove temporary files
+
+    rm "$out/*grep.txt"
 
 ### for species with one input file
+
 else
-    # Commands to execute if all conditions are false
+    ## extract haplotype specific sequence reads from .fastq file
+    #extract just read ID for grep
+
+    awk '{print 1}' "$out/${name}_hap1_reads.txt > "$out/${name}_hap1_grep.txt"
+    awk '{print 1}' "$out/${name}_hap2_reads.txt > "$out/${name}_hap2_grep.txt"
+
+    #extract hap1 and hap2 reads from both input files
+
+    seqkit grep -f "$out/${name}_hap1_grep.txt" $file1 -o "$out/${name}_hap1_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap2_grep.txt" $file1 -o "$out/${name}_hap2_reads.fastq.gz"
+
+    #remove temporary files
+
+    rm "$out/*grep.txt"
 fi
 
-    # extract haplotype specific sequence reads from .fastq file
+### align reads
 
-    seqkit grep -f id.txt $file1 -o result.fq.gz
-    seqkit grep -f id.txt $file2 -o result.fq.gz
-
-#assemblies
+pbmm2
