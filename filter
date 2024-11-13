@@ -15,3 +15,5 @@ mkdir -p "$out"
 
 awk '$1 == "A" {print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_reads.txt"
 awk '$1 == "A" {print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_reads.txt"
+
+ awk '$1 !~ /A/ && $1 !~ /S/ {print}' p_gunnellus_hifi.asm.bp.hap1.p_ctg.noseq.gfa
