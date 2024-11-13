@@ -1,4 +1,4 @@
-## Realignment of haploptype specific reads to haplotype assemblies 
+###### Realignment of haploptype specific reads to haplotype assemblies #######
 
 # loading required modules + conda environment
 
@@ -16,20 +16,36 @@ file2=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fast
 
 # Create the output directory 
 mkdir -p "$out"
+cd "$out"
 
 # extract read name and phasing information from haplotype specific .gfa files
 
 awk '$1 == "A" {print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_reads.txt"
 awk '$1 == "A" {print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_reads.txt"
 
-if [ condition1 ]; then
-    # Commands to execute if condition1 is true
+
+### for species with two input files
+
+if [[ "$file2" == *.fastq.gz ]]; then
+    ## extract haplotype specific sequence reads from .fastq file
+    #extract just readID from 
+    awk '{print 1}' "$out/${name}_hap1_reads.txt > "$out/${name}_hap1_grep.txt"
+    awk '{print 1}' "$out/${name}_hap2_reads.txt > "$out/${name}_hap2_grep.txt"
+
+    seqkit grep -f "$out/${name}_hap1_grep.txt" $file1 -o "$out/${name}_hap1_file1_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap2_grep.txt" $file1 -o "$out/${name}_hap2_file1_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap1_grep.txt" $file1 -o "$out/${name}_hap1_file1_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap2_grep.txt" $file1 -o "$out/${name}_hap2_file1_reads.fastq.gz"
+
+
+### for species with one input file
 else
     # Commands to execute if all conditions are false
 fi
-# extract haplotype specific sequence reads from .fastq file
 
-seqkit grep -f id.txt $file1 -o result.fq.gz
-seqkit grep -f id.txt $file2 -o result.fq.gz
+    # extract haplotype specific sequence reads from .fastq file
+
+    seqkit grep -f id.txt $file1 -o result.fq.gz
+    seqkit grep -f id.txt $file2 -o result.fq.gz
 
 #assemblies
