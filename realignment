@@ -11,6 +11,8 @@ conda activate pbmm2
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
 name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
 out=/hb/home/omoosman/owen/zoarcoidei/analysis/realignment/$name
+file1=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '1p')
+file2=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '2p')
 
 # Create the output directory 
 mkdir -p "$out"
@@ -20,8 +22,14 @@ mkdir -p "$out"
 awk '$1 == "A" {print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_reads.txt"
 awk '$1 == "A" {print $5, $9}' /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_reads.txt"
 
+if [ condition1 ]; then
+    # Commands to execute if condition1 is true
+else
+    # Commands to execute if all conditions are false
+fi
 # extract haplotype specific sequence reads from .fastq file
 
-seqkit grep -f id.txt  -o result.fq.gz
+seqkit grep -f id.txt $file1 -o result.fq.gz
+seqkit grep -f id.txt $file2 -o result.fq.gz
 
 #assemblies
