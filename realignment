@@ -43,8 +43,8 @@ if [[ "$file2" == *.fastq.gz ]]; then
 
     #merge reads from each haplotype
 
-    zcat "$out/${name}_hap1_file1_reads.fastq.gz" "$out/${name}_hap1_file2_reads.fastq.gz" | gzip > "$out/${name}_hap1_reads.fastq.gz"
-    zcat "$out/${name}_hap2_file1_reads.fastq.gz" "$out/${name}_hap2_file2_reads.fastq.gz" | gzip > "$out/${name}_hap2_reads.fastq.gz"
+    cat "$out/${name}_hap1_file1_reads.fastq.gz" "$out/${name}_hap1_file2_reads.fastq.gz"  > "$out/${name}_hap1_reads.fastq.gz"
+    cat "$out/${name}_hap2_file1_reads.fastq.gz" "$out/${name}_hap2_file2_reads.fastq.gz"  > "$out/${name}_hap2_reads.fastq.gz"
 
 ### for species with one input file
 
