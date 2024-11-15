@@ -17,24 +17,25 @@ conda activate hifiasm
 #defining species name and path to fastq.gz
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
 name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
+out=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
 file1=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '1p')
 file2=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '2p')
 
 # Make out directory and move to directory with input files
-mkdir -p /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
-cd /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name
+mkdir -p "$out"
+cd "$out"
 
 ## for species with two input files
 
 if [[ "$file2" == *.fastq.gz ]]; then
 
   #assembly
-  hifiasm -o /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm" -t20 --write-paf "$file1" "$file2" 2> /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.log"
+  hifiasm -o "{$out}/${name}_hifi.asm" -t20 --write-paf "$file1" "$file2" 2> "{$out}/${name}_hifi.asm.log"
 
 ### for species with one input file
 
 else
 
   #assembly
-  hifiasm -o /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm" -t20 --write-paf "$file1" 2> /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.log"
+  hifiasm -o "{$out}/${name}_hifi.asm" -t20 --write-paf "$file1" 2> "{$out}/${name}_hifi.asm.log"
 fi
