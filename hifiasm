@@ -24,5 +24,17 @@ file2=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fast
 mkdir -p /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
 cd /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name
 
-# hifi reads only
-hifiasm -o /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm" -t20 --write-paf "$file" 2> /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.log"
+## for species with two input files
+
+if [[ "$file2" == *.fastq.gz ]]; then
+
+  #assembly
+  hifiasm -o /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm" -t20 --write-paf "$file1" "$file2" 2> /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.log"
+
+### for species with one input file
+
+else
+
+  #assembly
+  hifiasm -o /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm" -t20 --write-paf "$file1" 2> /hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name/"${name}_hifi.asm.log"
+fi
