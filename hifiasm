@@ -23,19 +23,18 @@ file2=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fast
 
 # Make out directory and move to directory with input files
 mkdir -p "$out"
-cd "$out"
 
 ## for species with two input files
 
 if [[ "$file2" == *.fastq.gz ]]; then
 
   #assembly
-  hifiasm -o "{$out}/${name}_hifi.asm" -t20 --write-paf "$file1" "$file2" 2> "{$out}/${name}_hifi.asm.log"
+  hifiasm -o "${out}/${name}_hifi.asm" -t20 --write-paf "$file1" "$file2" 2> "${out}/${name}_hifi.asm.log"
 
 ### for species with one input file
 
 else
 
   #assembly
-  hifiasm -o "{$out}/${name}_hifi.asm" -t20 --write-paf "$file1" 2> "{$out}/${name}_hifi.asm.log"
+  hifiasm -o "${out}/${name}_hifi.asm" -t20 --write-paf "$file1" 2> "${out}/${name}_hifi.asm.log"
 fi
