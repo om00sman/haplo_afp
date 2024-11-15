@@ -23,6 +23,18 @@ mkdir -p "$out"
 awk '$1 == "A" {print $5, $9}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_reads.txt"
 awk '$1 == "A" {print $5, $9}' "$in/${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_reads.txt"
 
+awk '$9 == "HG:A:m" {print $5}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_m.txt"
+awk '$9 == "HG:A:m" {print $5}' "$in/${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_m.txt"
+cat "$out/${name}_hap1_m.txt" "$out/${name}_hap2_m.txt" > "$out/${name}_m.txt"
+
+awk '$9 == "HG:A:a" {print $5}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_a.txt"
+awk '$9 == "HG:A:a" {print $5}' "$in/${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_a.txt"
+cat "$out/${name}_hap1_a.txt" "$out/${name}_hap2_a.txt" > "$out/${name}_a.txt"
+
+awk '$9 == "HG:A:p" {print $5}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_p.txt"
+awk '$9 == "HG:A:p" {print $5}' "$in/${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_p.txt"
+cat "$out/${name}_hap1_p.txt" "$out/${name}_hap2_p.txt" > "$out/${name}_p.txt"
+
 ### extract haplotype specific sequence reads from .fastq file
 
 #extract just read ID for grep
