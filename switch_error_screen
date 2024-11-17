@@ -1,1 +1,76 @@
+###### Realignment of haploptype specific reads to haplotype assemblies #######
 
+# loading required modules + conda environment
+
+module load seqkit
+module load miniconda 3
+conda activate pbmm2 
+
+# defining variables
+
+config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
+name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
+in=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
+out=/hb/home/omoosman/owen/zoarcoidei/analysis/realignment/$name
+file1=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '1p')
+file2=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '2p')
+
+# Create the output directory 
+mkdir -p "$out"
+
+# extract read name and phasing information from haplotype specific .gfa files
+
+awk '$9 == "HG:A:m" {print $5}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_m.txt"
+awk '$9 == "HG:A:m" {print $5}' "$in/${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_m.txt"
+cat "$out/${name}_hap1_m.txt" "$out/${name}_hap2_m.txt" > "$out/${name}_m.txt"
+
+awk '$9 == "HG:A:a" {print $5}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_a.txt"
+awk '$9 == "HG:A:a" {print $5}' "$in/${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_a.txt"
+cat "$out/${name}_hap1_a.txt" "$out/${name}_hap2_a.txt" > "$out/${name}_a.txt"
+
+awk '$9 == "HG:A:p" {print $5}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_p.txt"
+awk '$9 == "HG:A:p" {print $5}' "$in/${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_p.txt"
+cat "$out/${name}_hap1_p.txt" "$out/${name}_hap2_p.txt" > "$out/${name}_p.txt"
+
+### extract haplotype specific sequence reads from .fastq file
+
+#extract just read ID for grep
+
+awk '{print $1}' "$out/${name}_hap1_reads.txt" > "$out/${name}_hap1_grep.txt"
+awk '{print $1}' "$out/${name}_hap2_reads.txt" > "$out/${name}_hap2_grep.txt"
+
+## for species with two input files
+
+if [[ "$file2" == *.fastq.gz ]]; then
+
+    #extract hap1 and hap2 reads from both input files
+
+    seqkit grep -f "$out/${name}_hap1_grep.txt" $file1 -o "$out/${name}_hap1_file1_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap2_grep.txt" $file1 -o "$out/${name}_hap2_file1_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap1_grep.txt" $file2 -o "$out/${name}_hap1_file2_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap2_grep.txt" $file2 -o "$out/${name}_hap2_file2_reads.fastq.gz"
+
+    #merge reads from each haplotype
+
+    cat "$out/${name}_hap1_file1_reads.fastq.gz" "$out/${name}_hap1_file2_reads.fastq.gz"  > "$out/${name}_hap1_reads.fastq.gz"
+    cat "$out/${name}_hap2_file1_reads.fastq.gz" "$out/${name}_hap2_file2_reads.fastq.gz"  > "$out/${name}_hap2_reads.fastq.gz"
+
+### for species with one input file
+
+else
+
+    #extract hap1 and hap2 reads from both input files
+
+    seqkit grep -f "$out/${name}_hap1_grep.txt" $file1 -o "$out/${name}_hap1_reads.fastq.gz"
+    seqkit grep -f "$out/${name}_hap2_grep.txt" $file1 -o "$out/${name}_hap2_reads.fastq.gz"
+
+fi
+
+#remove temporary files
+
+rm "$out/*grep.txt"
+
+### align reads
+
+pbmm2 align "$in/${name}_hap1_ctg.fasta" "$out/${name}_hap1_reads.fastq.gz" "$out/${name}_hap1_alignment.bam" --sort
+pbmm2 align "$in/${name}_hap2_ctg.fasta" "$out/${name}_hap2_reads.fastq.gz" "$out/${name}_hap2_alignment.bam" --sort
