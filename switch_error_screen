@@ -32,45 +32,22 @@ awk '$9 == "HG:A:p" {print $5}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" >
 awk '$9 == "HG:A:p" {print $5}' "$in/${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_p.txt"
 cat "$out/${name}_hap1_p.txt" "$out/${name}_hap2_p.txt" > "$out/${name}_p.txt"
 
-### extract haplotype specific sequence reads from .fastq file
+#combine input fasta files
 
-#extract just read ID for grep
+cat "$in/${name}_hap1_ctg.fasta" "$in/${name}_hap2_ctg.fasta" > "$in/${name}_ctg.fasta"
 
-awk '{print $1}' "$out/${name}_hap1_reads.txt" > "$out/${name}_hap1_grep.txt"
-awk '{print $1}' "$out/${name}_hap2_reads.txt" > "$out/${name}_hap2_grep.txt"
-
-## for species with two input files
+## alignment for species with two input files
 
 if [[ "$file2" == *.fastq.gz ]]; then
 
-    #extract hap1 and hap2 reads from both input files
+    cat $file1 $file2 > "$out/${name}_combined.fastq.gz"
 
-    seqkit grep -f "$out/${name}_hap1_grep.txt" $file1 -o "$out/${name}_hap1_file1_reads.fastq.gz"
-    seqkit grep -f "$out/${name}_hap2_grep.txt" $file1 -o "$out/${name}_hap2_file1_reads.fastq.gz"
-    seqkit grep -f "$out/${name}_hap1_grep.txt" $file2 -o "$out/${name}_hap1_file2_reads.fastq.gz"
-    seqkit grep -f "$out/${name}_hap2_grep.txt" $file2 -o "$out/${name}_hap2_file2_reads.fastq.gz"
+    pbmm2 align "$in/${name}_ctg.fasta" "$out/${name}_combined.fastq.gz" "$out/${name}_alignment.sorted.bam" --sort
 
-    #merge reads from each haplotype
-
-    cat "$out/${name}_hap1_file1_reads.fastq.gz" "$out/${name}_hap1_file2_reads.fastq.gz"  > "$out/${name}_hap1_reads.fastq.gz"
-    cat "$out/${name}_hap2_file1_reads.fastq.gz" "$out/${name}_hap2_file2_reads.fastq.gz"  > "$out/${name}_hap2_reads.fastq.gz"
-
-### for species with one input file
+### alignment for species with one input file
 
 else
 
-    #extract hap1 and hap2 reads from both input files
-
-    seqkit grep -f "$out/${name}_hap1_grep.txt" $file1 -o "$out/${name}_hap1_reads.fastq.gz"
-    seqkit grep -f "$out/${name}_hap2_grep.txt" $file1 -o "$out/${name}_hap2_reads.fastq.gz"
-
+    pbmm2 align "$in/${name}_ctg.fasta" $file1 "$out/${name}_alignment.sorted.bam" --sort
+    
 fi
-
-#remove temporary files
-
-rm "$out/*grep.txt"
-
-### align reads
-
-pbmm2 align "$in/${name}_hap1_ctg.fasta" "$out/${name}_hap1_reads.fastq.gz" "$out/${name}_hap1_alignment.bam" --sort
-pbmm2 align "$in/${name}_hap2_ctg.fasta" "$out/${name}_hap2_reads.fastq.gz" "$out/${name}_hap2_alignment.bam" --sort
