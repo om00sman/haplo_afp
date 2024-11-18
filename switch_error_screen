@@ -14,7 +14,7 @@
 
 # loading required modules + conda environment
 
-module load miniconda 3
+module load miniconda3
 conda activate pbmm2 
 
 # defining variables
