@@ -40,7 +40,7 @@ cat "$in/${name}_hap1_ctg.fasta" "$in/${name}_hap2_ctg.fasta" > "$in/${name}_ctg
 
 if [[ "$file2" == *.fastq.gz ]]; then
 
-    cat $file1 $file2 > "$out/${name}_combined.fastq.gz"
+    zcat $file1 $file2 | gzip > "$out/${name}_combined.fastq.gz"
 
     pbmm2 align "$in/${name}_ctg.fasta" "$out/${name}_combined.fastq.gz" "$out/${name}_alignment.sorted.bam" --sort
 
