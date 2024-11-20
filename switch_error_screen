@@ -43,9 +43,11 @@ awk '$9 == "HG:A:p" {print $5}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" >
 awk '$9 == "HG:A:p" {print $5}' "$in/${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_p.txt"
 cat "$out/${name}_hap1_p.txt" "$out/${name}_hap2_p.txt" > "$out/${name}_p.txt"
 
-#combine reference fasta files
+#combine and index reference fasta files
 
-cat "$in/${name}_hap1_ctg.fasta" "$in/${name}_hap2_ctg.fasta" > "$in/${name}_ctg.fasta"
+cat "$in/${name}_hap1_ctg.fasta" "$in/${name}_hap2_ctg.fasta" > "$in/${name}_ref.fasta"
+
+pbmm2 index "$in/${name}_ref.fasta" "$in/${name}_ref.mmi" 
 
 ## alignment for species with two input files
 
@@ -53,7 +55,7 @@ if [[ "$file2" == *.fastq.gz ]]; then
 
     zcat $file1 $file2 | gzip > "$out/${name}_combined.fastq.gz"
 
-    pbmm2 align "$in/${name}_ctg.fasta" "$out/${name}_combined.fastq.gz" "$out/${name}_alignment.sorted.bam" --sort
+    pbmm2 align "$in/${name}_ref.fasta" "$out/${name}_combined.fastq.gz" "$out/${name}_alignment.sorted.bam" --sort
 
 ### alignment for species with one input file
 
