@@ -6,8 +6,8 @@
 #SBATCH --error=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/switch_err/switch_%A_%a.err
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=20 GB
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=40 GB
 #SBATCH --time=5-00:00:00
 
 ###### Realignment of haploptype specific reads to haplotype assemblies #######
