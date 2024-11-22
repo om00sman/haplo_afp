@@ -61,6 +61,6 @@ if [[ "$file2" == *.fastq.gz ]]; then
 
 else
 
-    pbmm2 align "$in/${name}_ctg.fasta" $file1 "$out/${name}_alignment.sorted.bam" --sort
+    pbmm2 align "$in/${name}_ref.fasta" $file1 "$out/${name}_alignment.sorted.bam" --sort
     
 fi
