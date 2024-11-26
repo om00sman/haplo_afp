@@ -29,6 +29,10 @@ file2=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fast
 # Create the output directory 
 mkdir -p "$out"
 
+#set the tmpdir
+
+export TMPDIR=/hb/scratch/omoosman/switch_err
+
 # extract read name and phasing information from haplotype specific .gfa files
 
 awk '$9 == "HG:A:m" {print $5}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" > "$out/${name}_hap1_m.txt"
