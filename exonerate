@@ -19,7 +19,11 @@ module load miniconda
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
 name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
 in=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
-out=/hb/home/omoosman/owen/zoarcoidei/analysis/realignment/$name
+out=/hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/$name
+
+# Create the output directory 
+
+mkdir -p "$out"
 
 #convert gfa to fasta
 
@@ -27,5 +31,16 @@ conda activate gfatools
 
 gfatools gfa2fa "$in/${name}_hifi.asm.bp.hap1.p_ctg.gfa" "$in/${name}_hap1_ctg.fasta" 
 
+gfatools gfa2fa "$in/${name}_hifi.asm.bp.hap2.p_ctg.gfa" "$in/${name}_hap2_ctg.fasta"
 
-exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target /hb/home/omoosman/owen/zoarcoidei/data/assemblies/p_gunnellus/p_gunnellus_hap1_ctg.fasta --showtargetgff TRUE --showquerygff FALSE > /hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/p_gunnellus_hap1_AFP_exonerate_output.txt
+gfatools gfa2fa "$in/${name}_hifi.asm.bp.r_utg.gfa" "$in/${name}_r_utg.fasta"
+
+#exonerate query
+
+conda activate exonerate
+
+exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target "$in/${name}_hap1_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/${name}_hap1_AFP_exonerate_output.txt"
+
+exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target "$in/${name}_hap2_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/${name}_hap2_AFP_exonerate_output.txt"
+
+exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target "$in/${name}_r_utg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/${name}_r_utg_AFP_exonerate_output.txt"
