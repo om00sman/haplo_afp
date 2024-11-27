@@ -70,12 +70,12 @@ else
 fi
 
 exonerate --model protein2genome \ 
-  --query  \
-  --target /path/to/pgunn/hap_2_genome.fa \
+  --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt \
+  --target "$in/${name}_ref.fasta" \
   --showtargetgff TRUE \
   --showquerygff FALSE \
   --minintron 0 \
   --maxintron 10000 \
   --showalignment FALSE --showcigar FALSE \
   --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
-  > /path/to/output/pgunn_hap2_AFP_annotations.gff
+  > "$out/${name}_AFP_annotations.gff"
