@@ -17,7 +17,7 @@ library(phytools)
 
 ```{r}
 
-owen_tree <- read.newick("SUPERMATRIX.phylip.treefile")
+owen_tree <- read.newick("C:/Users/omoos/OneDrive/Documents/zoarcoidei/SUPERMATRIX.phylip.treefile")
 
 owen_tree$tip.label <- c("Gasterosteus aculeatus", "Lycodes pacificus", "Lycodes diapterus", 
                     "Ophthalmolycus amberensis", "Lycodes concolor", "Lycodes platyrhinus", 
