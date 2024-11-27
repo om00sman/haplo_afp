@@ -68,3 +68,14 @@ else
     pbmm2 align "$in/${name}_ref.fasta" $file1 "$out/${name}_alignment.sorted.bam" --sort
     
 fi
+
+exonerate --model protein2genome \ 
+  --query  \
+  --target /path/to/pgunn/hap_2_genome.fa \
+  --showtargetgff TRUE \
+  --showquerygff FALSE \
+  --minintron 0 \
+  --maxintron 10000 \
+  --showalignment FALSE --showcigar FALSE \
+  --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
+  > /path/to/output/pgunn_hap2_AFP_annotations.gff
