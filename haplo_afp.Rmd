@@ -1,0 +1,49 @@
+---
+title: "haplo_afp"
+output: html_document
+date: "2024-11-27"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(tidyverse)
+library(ggtree)
+library(ape)
+library(phytools)
+
+```
+
+```{r}
+
+owen_tree <- read.newick("SUPERMATRIX.phylip.treefile")
+
+owen_tree$tip.label <- c("Gasterosteus aculeatus", "Lycodes pacificus", "Lycodes diapterus", 
+                    "Ophthalmolycus amberensis", "Lycodes concolor", "Lycodes platyrhinus", 
+                    "Lycodichthys dearborni", "Melanostigma pammelas", "Melanostigma gelatinosum",
+                    "Zoarces viviparus", "Anarhichas minor", "Anarhichas lupus",
+                    "Pholis gunnellus", "Cryptacanthodes maculatus", "Leptoclinus maculatus", 
+                    "Anoplarchus purpurescens", "Cebidichthys violaceus", "Bathymaster signatus")
+
+owen_tree <- reroot(owen_tree, 
+             node.number = 1, 
+             position = .5*(max(owen_tree$edge.length)))
+
+
+
+owen_tree$node.label <- ifelse(owen_tree$node.label == "Root", "", 
+                               ifelse(owen_tree$node.label == "100/100", "100",
+                                      ifelse(owen_tree$node.label == "51/71", "72", owen_tree$node.label)))
+
+owen_tree <- drop.tip(owen_tree, tip = "Anoplarchus purpurescens")
+
+ggtree(owen_tree) +
+  geom_tree(layout = "rectangular", size = 1) +
+  geom_tiplab(fontface = "italic", align = TRUE) +
+  xlim(0, .16) +
+  geom_treescale(x = .01, y = 10,)
+
+```
+
+
