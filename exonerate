@@ -16,5 +16,15 @@ module load miniconda
 
 #define variables
 
+config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
+name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
+in=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
+
+#convert gfa to fasta
+
+conda activate gfatools
+
+gfatools gfa2fa 
+
 
 exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target /hb/home/omoosman/owen/zoarcoidei/data/assemblies/p_gunnellus/p_gunnellus_hap1_ctg.fasta --showtargetgff TRUE --showquerygff FALSE > /hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/p_gunnellus_hap1_AFP_exonerate_output.txt
