@@ -1,1 +1,20 @@
+#!/bin/bash
+#SBATCH --job-name=zoarcoidei_exonerate
+#SBATCH --mail-user=omoosman@ucsc.edu
+#SBATCH --mail-type=ALL
+#SBATCH --output=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/exonerate/query_%A_%a.out
+#SBATCH --error=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/exonerate/query_%A_%a.err
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=5GB
+#SBATCH --time=00:01:00
+
+#load required modules
+
+module load miniconda
+
+#define variables
+
+
 exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target /hb/home/omoosman/owen/zoarcoidei/data/assemblies/p_gunnellus/p_gunnellus_hap1_ctg.fasta --showtargetgff TRUE --showquerygff FALSE > /hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/p_gunnellus_hap1_AFP_exonerate_output.txt
