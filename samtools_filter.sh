@@ -13,6 +13,11 @@
 #SBATCH --mem=35GB
 #SBATCH --time=1-00:00:00
 
+
+#load module
+
+module load samtools
+
 #filter with samtools
 
 samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/p_gunnellus/p_gunnellus_alignment.sorted.bam h1tg000157l h2tg000025l -o /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/p_gunnellus/p_gunnellus_filt_AFP.bam
