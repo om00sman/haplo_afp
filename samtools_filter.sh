@@ -18,6 +18,8 @@
 
 module load samtools
 
-#filter with samtools
+#filter with samtools and index output
 
 samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/p_gunnellus/p_gunnellus_alignment.sorted.bam h1tg000157l h2tg000025l -o /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/p_gunnellus/p_gunnellus_filt_AFP.bam
+
+samtools index p_gunnellus_filt_AFP.bam
