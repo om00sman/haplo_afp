@@ -12,7 +12,7 @@
 
 #load required modules
 
-module load miniconda
+module load miniconda3
 
 #define variables
 
@@ -29,11 +29,13 @@ mkdir -p "$out"
 
 conda activate gfatools
 
-gfatools gfa2fa "$in/${name}_hifi.asm.bp.hap1.p_ctg.gfa" "$in/${name}_hap1_ctg.fasta" 
+gfatools gfa2fa "$in/${name}_hifi.asm.bp.hap1.p_ctg.gfa" > "$in/${name}_hap1_ctg.fasta" 
 
-gfatools gfa2fa "$in/${name}_hifi.asm.bp.hap2.p_ctg.gfa" "$in/${name}_hap2_ctg.fasta"
+gfatools gfa2fa "$in/${name}_hifi.asm.bp.hap2.p_ctg.gfa" > "$in/${name}_hap2_ctg.fasta"
 
-gfatools gfa2fa "$in/${name}_hifi.asm.bp.r_utg.gfa" "$in/${name}_r_utg.fasta"
+gfatools gfa2fa "$in/${name}_hifi.asm.bp.r_utg.gfa" > "$in/${name}_r_utg.fasta"
+
+conda deactivate
 
 #exonerate query
 
