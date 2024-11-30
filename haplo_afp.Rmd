@@ -17,7 +17,11 @@ library(phytools)
 
 ```{r}
 
+#load data into object
+
 owen_tree <- read.newick("C:/Users/omoos/OneDrive/Documents/zoarcoidei/SUPERMATRIX.phylip.treefile")
+
+#relabel tips with correct sp. name
 
 owen_tree$tip.label <- c("Gasterosteus aculeatus", "Lycodes pacificus", "Lycodes diapterus", 
                     "Ophthalmolycus amberensis", "Lycodes concolor", "Lycodes platyrhinus", 
@@ -25,18 +29,23 @@ owen_tree$tip.label <- c("Gasterosteus aculeatus", "Lycodes pacificus", "Lycodes
                     "Zoarces viviparus", "Anarhichas minor", "Anarhichas lupus",
                     "Pholis gunnellus", "Cryptacanthodes maculatus", "Leptoclinus maculatus", 
                     "Anoplarchus purpurescens", "Cebidichthys violaceus", "Bathymaster signatus")
+#reroot tree with G. aculeatus as root
 
 owen_tree <- reroot(owen_tree, 
              node.number = 1, 
              position = .5*(max(owen_tree$edge.length)))
 
-
+#edit node labels to be in percentages rather than ratios
 
 owen_tree$node.label <- ifelse(owen_tree$node.label == "Root", "", 
                                ifelse(owen_tree$node.label == "100/100", "100",
                                       ifelse(owen_tree$node.label == "51/71", "72", owen_tree$node.label)))
 
+#remove species with no data
+
 owen_tree <- drop.tip(owen_tree, tip = "Anoplarchus purpurescens")
+
+#plot tree
 
 ggtree(owen_tree) +
   geom_tree(layout = "rectangular", size = 1) +
@@ -46,4 +55,16 @@ ggtree(owen_tree) +
 
 ```
 
+```{r}
+library(readxl)
+zoarcoidei_haplo_afp <- read_excel("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (2).xlsx", sheet = "graph")
+View(zoarcoidei_haplo_afp)
 
+zoarcoidei_haplo_afp$Species <- factor(zoarcoidei_haplo_afp$Species, levels = unique(zoarcoidei_haplo_afp$Species))
+ 
+ggplot(zoarcoidei_haplo_afp, aes(x = Haplotype, fill = Type)) + 
+  geom_histogram(stat = "count") +
+  facet_wrap(~Species) +
+  labs(x = "")
+
+```
