@@ -17,6 +17,8 @@
 #load module
 
 module load samtools
+module load miniconda3
+conda activate exonerate
 
 #filter with samtools and index output
 
@@ -25,12 +27,12 @@ samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/a_lupus
 samtools index /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/a_lupus/a_lupus_filt_AFP.bam
 
 exonerate --model protein2genome \ 
-  --query /path/to/Mamericanus_AFP.txt \
-  --target /path/to/pgunn/hap_2_genome.fa \
+  --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt \
+  --target /hb/home/omoosman/owen/zoarcoidei/data/assemblies/a_lupus/a_lupus_ref.fasta \
   --showtargetgff TRUE \
   --showquerygff FALSE \
   --minintron 0 \
   --maxintron 10000 \
   --showalignment FALSE --showcigar FALSE \
   --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
-  > /path/to/output/pgunn_hap2_AFP_annotations.gff
+  > /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/a_lupus/a_lupus_AFP_annotations.gff
