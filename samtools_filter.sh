@@ -20,6 +20,6 @@ module load samtools
 
 #filter with samtools and index output
 
-samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_maculatus/l_maculatus_alignment.sorted.bam  h1tg000093l h1tg000447c h1tg000021l h1tg000533l h2tg000350l h2tg000090l h2tg000369l -o /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_maculatus/l_maculatus_filt_AFP.bam
+samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/a_lupus/a_lupus_alignment.sorted.bam h1tg000009l h1tg000038l h1tg000066l h2tg000001l h2tg000051l h2tg000193l -o /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/a_lupus/a_lupus_filt_AFP.bam
 
-samtools index l_maculatus_filt_AFP.bam
+samtools index /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/a_lupus/a_lupus_filt_AFP.bam
