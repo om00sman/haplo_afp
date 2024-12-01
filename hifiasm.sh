@@ -7,8 +7,9 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=20
-#SBATCH --mem=80GB
+#SBATCH --mem=250GB
 #SBATCH --time=5-00:00:00
+#SBATCH --partition=256x4
 
 # Load dependencies
 module load miniconda3
