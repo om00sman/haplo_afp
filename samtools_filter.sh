@@ -33,6 +33,6 @@ exonerate --model protein2genome \
   --showquerygff FALSE \
   --minintron 0 \
   --maxintron 10000 \
-  --showalignment FALSE --showcigar FALSE \
+  --showalignment TRUE --showcigar FALSE \
   --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
   > /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/a_lupus/a_lupus_AFP_annotations.gff
