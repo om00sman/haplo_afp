@@ -7,12 +7,14 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=20
-#SBATCH --mem=80GB
+#SBATCH --mem=250GB
 #SBATCH --time=5-00:00:00
+#SBATCH --partition=256x4
 
 # Load dependencies
 module load miniconda3
 conda activate hifiasm
+
 
 #defining species name and path to fastq.gz
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
@@ -20,6 +22,8 @@ name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
 out=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
 file1=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '1p')
 file2=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '2p')
+
+export TMPDIR=/hb/scratch/omoosman/switch_err
 
 # Make out directory and move to directory with input files
 mkdir -p "$out"
