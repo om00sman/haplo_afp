@@ -12,10 +12,38 @@ library(tidyverse)
 library(ggtree)
 library(ape)
 library(phytools)
+library(readxl)
+library(aplot)
 
 ```
 
 ```{r}
+##fig4 hist
+
+fig4 <- read_excel("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (6).xlsx", sheet = "fig4graph")
+
+#order species by their appearance in the data set rather than alphabetically
+
+fig4$Species <- factor(fig4$Species, levels = unique(fig4$Species))
+
+#graph
+
+p <- ggplot(fig4, aes(x = Haplotype, fill = Type)) + 
+  geom_bar(stat = "count") +
+  geom_text(stat = "count", aes(label = ..count..), position = position_stack(vjust = 0.5)) +
+  facet_wrap(~Species, ncol = 1) +
+  theme(strip.text.x = element_blank(), panel.grid.major = element_blank(),    panel.grid.minor = element_blank()) +
+  labs(y = "", x = "",) +
+  scale_fill_manual(values = c("hap1v" = "#ED1C24", "hap2v" = "#00AEEF", "hap1m"="#F69D9F"))
+  theme_minimal()
+  
+ggsave(plot = p, height = 5, width = 3, filename = "fig4plot.png" )
+
+```
+
+
+```{r}
+##fig7tree
 
 #load data into object
 
@@ -43,11 +71,13 @@ owen_tree$node.label <- ifelse(owen_tree$node.label == "Root", "",
 
 #remove species with no data
 
-owen_tree <- drop.tip(owen_tree, tip = "Anoplarchus purpurescens")
+rmtips <- c("Melanostigma pammelas", "Melanostigma gelatinosum", "Anoplarchus purpurescens")
+
+owen_tree <- drop.tip(owen_tree, rmtips)
 
 #plot tree
 
-ggtree(owen_tree) +
+tree <- ggtree(owen_tree) +
   geom_tree(layout = "rectangular", size = 1) +
   geom_tiplab(fontface = "italic", align = TRUE) +
   xlim(0, .16) +
@@ -56,15 +86,25 @@ ggtree(owen_tree) +
 ```
 
 ```{r}
-library(readxl)
-zoarcoidei_haplo_afp <- read_excel("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (2).xlsx", sheet = "graph")
-View(zoarcoidei_haplo_afp)
+##fig7 histogram
+
+#import data from excel file
+
+zoarcoidei_haplo_afp <- read_excel("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (3).xlsx", sheet = "graph")
+
+#order species by their appearance in the data set rather than alphabetically
 
 zoarcoidei_haplo_afp$Species <- factor(zoarcoidei_haplo_afp$Species, levels = unique(zoarcoidei_haplo_afp$Species))
- 
-ggplot(zoarcoidei_haplo_afp, aes(x = Haplotype, fill = Type)) + 
-  geom_histogram(stat = "count") +
-  facet_wrap(~Species) +
-  labs(x = "")
+
+#graph
+
+histogram <- ggplot(zoarcoidei_haplo_afp, aes(y = Haplotype, fill = Type)) + 
+  geom_bar(stat = "count") +
+  geom_text(stat = "count", aes(label = ..count..), position = position_stack(vjust = 0.5)) +
+  facet_wrap(~Species, ncol = 1) +
+  labs(y = "") +
+  theme_minimal()
+
+figure <- plot_list(tree, histogram, labels = c('A', 'B'))
 
 ```
