@@ -28,11 +28,11 @@ samtools index /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/a_minor/a_
 
 exonerate --model protein2genome \ 
   --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt \
-  --target /hb/home/omoosman/owen/zoarcoidei/data/assemblies/a_minor/a_minor_ref.fasta \
+  --target /hb/home/omoosman/owen/zoarcoidei/data/assemblies/l_maculatus/l_maculatus_ref.fasta \
   --showtargetgff TRUE \
   --showquerygff FALSE \
   --minintron 0 \
   --maxintron 10000 \
   --showalignment TRUE --showcigar FALSE \
   --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
-  > /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/a_minor/a_minor_AFP_annotations.gff
+  > /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_maculatus/l_maculatus_AFP_annotations.gff
