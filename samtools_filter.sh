@@ -26,8 +26,7 @@ samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_dearb
 
 samtools index /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_dearborni/l_dearborni_filt_AFP.bam
 
-exonerate --model protein2genome \ 
-  --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt \
+exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt \
   --target /hb/home/omoosman/owen/zoarcoidei/data/assemblies/l_dearborni/l_dearborni_ref.fasta \
   --showtargetgff TRUE \
   --showquerygff FALSE \
