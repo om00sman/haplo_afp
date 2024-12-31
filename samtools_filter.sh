@@ -22,7 +22,7 @@ conda activate exonerate
 
 #filter with samtools and index output
 
-samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_dearborni/l_dearborni_alignment.sorted.bam h1tg000072l h1tg000108l h1tg000110l h2tg000007l h2tg000008l h2tg000061l -o /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_dearborni/l_dearborni_filt_AFP.bam
+samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_dearborni/l_dearborni_alignment.sorted.bam h1tg000019l h2tg000034l -o /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_dearborni/l_dearborni_filt_AFP.bam
 
 samtools index /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_dearborni/l_dearborni_filt_AFP.bam
 
