@@ -14,4 +14,10 @@
 module load minimap2
 
 #define variables
+config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
+name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
+in=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
+out=/hb/home/omoosman/owen/zoarcoidei/analysis/realignment/$name
+
+
 minimap2 -t 12 -ax asm5 ref.fa asm.fa > aln.sam
