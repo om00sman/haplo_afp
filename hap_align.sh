@@ -12,6 +12,7 @@
 
 #load required modules
 module load minimap2
+module load samtools
 
 #define variables
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/sra_id.txt
@@ -19,5 +20,11 @@ name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
 in=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
 out=/hb/home/omoosman/owen/zoarcoidei/analysis/realignment/$name
 
+#perform alignment
 
-minimap2 -t 12 -ax asm5 ref.fa asm.fa > aln.sam
+minimap2 -t 12 -ax asm5 "$in/${name}_hap1_ctg.fasta" "$in/${name}_hap2_ctg.fasta" > "$out/${name}_haptohap.sam"
+
+#convert output to BAM and sort and index
+samtools view -b "$out/${name}_haptohap.sam" > "$out/${name}_haptohap.bam"
+samtools sort "$out/${name}_haptohap.bam" -o "$out/${name}_haptohap.sorted.bam"
+samtools index "$out/${name}_haptohap.sorted.bam"
