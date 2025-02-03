@@ -12,7 +12,7 @@
 
 #load required modules
 module load miniconda3
-conda activate kalign
+conda activate kalign3
 
 kalign -i /hb/groups/kelley_training/owen/zoarcoidei/data/assemblies/l_dearborni/l_dearborni_contigs.fasta --type dna -o /hb/groups/kelley_training/owen/zoarcoidei/analysis/realignment/l_dearborni/l_dearborni_alignment.fasta
 
