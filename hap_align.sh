@@ -14,5 +14,5 @@
 module load miniconda3
 conda activate mummer
 
-nucmer --threads=4 -p l_dearborni_h1tg000019l_h2tg000034l /hb/home/omoosman/owen/zoarcoidei/data/assemblies/l_dearborni/l_dearborni_h1tg000019l.fasta /hb/home/omoosman/owen/zoarcoidei/data/assemblies/l_dearborni/l_dearborni_h2tg000034l.fasta
+nucmer --threads=4 -p --coords l_dearborni_h1tg000019l_h2tg000034l /hb/home/omoosman/owen/zoarcoidei/data/assemblies/l_dearborni/l_dearborni_h1tg000019l.fasta /hb/home/omoosman/owen/zoarcoidei/data/assemblies/l_dearborni/l_dearborni_h2tg000034l.fasta
 
