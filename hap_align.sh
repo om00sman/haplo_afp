@@ -19,11 +19,8 @@ nucmer --coords -p l_dearborni_h1tg000019l_h2tg000034l /hb/home/omoosman/owen/zo
 import os
 import subprocess
 import re
-import subprocess
 
-subprocess.run(["delta_to_fasta", "-h"])
-
-def delta_to_fasta("l_dearborni_h1tg000019l_h2tg000034l.delta", "l_dearborni_h1tg000019l_h2tg000034l.fasta"):
+def delta_to_fasta(delta_filename, output_filename=None):
     if output_filename is None:
         assert len(delta_filename.rsplit('.')) == 2, 'Give the delta file a file extension so that a basename can be identified and used for the output filename, otherwise supply a filename of your choosing with the `output_filename` parameter.'
         delta_file_basename = delta_filename.rsplit('.')[0]
@@ -32,8 +29,8 @@ def delta_to_fasta("l_dearborni_h1tg000019l_h2tg000034l.delta", "l_dearborni_h1t
     else:
         fasta_filename = output_filename
 
-    coords_file = subprocess.run(['show-coords', '-c', '-l', '-r', '-T', delta_filename],
-                                  stdout=subprocess.PIPE).stdout.decode('utf-8')
+    coords_file = subprocess.run(['conda', 'run', '-n', 'mummer', 'show-coords', '-c', '-l', '-r', '-T', delta_filename],
+                              stdout=subprocess.PIPE).stdout.decode('utf-8')
 
     coords_file_contents = coords_file.split('\n')[4:-1]
 
@@ -49,8 +46,8 @@ def delta_to_fasta("l_dearborni_h1tg000019l_h2tg000034l.delta", "l_dearborni_h1t
 #            assert len(alignments) == 0
             seq_names = tuple(line.split('\t')[-2:])
             first_seq_name, second_seq_name = seq_names
-
-            aligns_file = subprocess.run(['show-aligns', delta_filename, first_seq_name, second_seq_name],
+            
+            aligns_file = subprocess.run(['conda', 'run', '-n', 'mummer','show-aligns', delta_filename, first_seq_name, second_seq_name],
                                         stdout=subprocess.PIPE).stdout.decode('utf-8')
             alignments = alignments_from_aligns_file(aligns_file)
 
@@ -99,3 +96,6 @@ def sequences_lines_from_alignment(alignment_string, first_seq_name='first_seque
 
     fasta_string = '\n'.join([first_fasta_string, second_fasta_string])
     return fasta_string
+
+delta_filename = "l_dearborni_h1tg000019l_h2tg000034l.delta"
+output_filename = "l_dearborni_h1tg000019l_h2tg000034l.fasta"
