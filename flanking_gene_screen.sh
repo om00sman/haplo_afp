@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=zoarcoidei_flanking gene
+#SBATCH --job-name=zoarcoidei_flanking_gene
 #SBATCH --mail-user=omoosman@ucsc.edu
 #SBATCH --mail-type=ALL
 #SBATCH --output=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/exonerate/flank_%A_%a.out
@@ -27,21 +27,19 @@ out=/hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/$name
 mkdir -p "$out"
 
 #exonerate query
-exonerate --model protein2genome \ 
-  --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt \
+exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/Gacul_ldb3b.fa \
   --target "$in/${name}_ref.fasta" \
   --showtargetgff TRUE \
   --showquerygff FALSE \
   --showalignment TRUE --showcigar FALSE \
   --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
-  > "$out/${name}_"
+  > "$out/${name}_ldb3b.gff"
 
 
-  exonerate --model protein2genome \ 
-  --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt \
+  exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/Gacul_sncgb.fa \
   --target "$in/${name}_ref.fasta" \
   --showtargetgff TRUE \
   --showquerygff FALSE \
   --showalignment TRUE --showcigar FALSE \
   --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
-  > "$out/${name}_"
+  > "$out/${name}_sncgb.gff"
