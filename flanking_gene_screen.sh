@@ -27,3 +27,21 @@ out=/hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/$name
 mkdir -p "$out"
 
 #exonerate query
+exonerate --model protein2genome \ 
+  --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt \
+  --target "$in/${name}_ref.fasta" \
+  --showtargetgff TRUE \
+  --showquerygff FALSE \
+  --showalignment TRUE --showcigar FALSE \
+  --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
+  > "$out/${name}_"
+
+
+  exonerate --model protein2genome \ 
+  --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt \
+  --target "$in/${name}_ref.fasta" \
+  --showtargetgff TRUE \
+  --showquerygff FALSE \
+  --showalignment TRUE --showcigar FALSE \
+  --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
+  > "$out/${name}_"
