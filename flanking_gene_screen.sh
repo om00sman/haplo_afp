@@ -26,7 +26,7 @@ out=/hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/$name
 
 mkdir -p "$out"
 
-#exonerate query
+#exonerate query for haps 1 and 2
 exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/Gacul_ldb3b.fa \
   --target "$in/${name}_ref.fasta" \
   --showtargetgff TRUE \
@@ -38,6 +38,25 @@ exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/
 
   exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/Gacul_sncgb.fa \
   --target "$in/${name}_ref.fasta" \
+  --showtargetgff TRUE \
+  --showquerygff FALSE \
+  --showalignment TRUE --showcigar FALSE \
+  --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
+  > "$out/${name}_sncgb.gff"
+
+
+#exonerate quary for raw utg
+  exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/Gacul_ldb3b.fa \
+  --target "$in/${name}_r_utg.fasta" \
+  --showtargetgff TRUE \
+  --showquerygff FALSE \
+  --showalignment TRUE --showcigar FALSE \
+  --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
+  > "$out/${name}_ldb3b.gff"
+
+
+  exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/Gacul_sncgb.fa \
+  --target "$in/${name}_r_utg.fasta" \
   --showtargetgff TRUE \
   --showquerygff FALSE \
   --showalignment TRUE --showcigar FALSE \
