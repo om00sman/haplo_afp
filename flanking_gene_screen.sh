@@ -33,7 +33,7 @@ exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/
   --showquerygff FALSE \
   --showalignment TRUE --showcigar FALSE \
   --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
-  > "$out/${name}_ldb3b.gff"
+  > "$out/${name}_ldb3b_ref.gff"
 
 
   exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/Gacul_sncgb.fa \
@@ -42,7 +42,7 @@ exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/
   --showquerygff FALSE \
   --showalignment TRUE --showcigar FALSE \
   --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
-  > "$out/${name}_sncgb.gff"
+  > "$out/${name}_sncgb_ref.gff"
 
 
 #exonerate quary for raw utg
@@ -52,7 +52,7 @@ exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/
   --showquerygff FALSE \
   --showalignment TRUE --showcigar FALSE \
   --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
-  > "$out/${name}_ldb3b.gff"
+  > "$out/${name}_ldb3b_utg.gff"
 
 
   exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/Gacul_sncgb.fa \
@@ -61,4 +61,4 @@ exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/data/
   --showquerygff FALSE \
   --showalignment TRUE --showcigar FALSE \
   --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
-  > "$out/${name}_sncgb.gff"
+  > "$out/${name}_sncgb_utg.gff"
