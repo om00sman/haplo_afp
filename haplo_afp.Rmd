@@ -14,6 +14,8 @@ library(ape)
 library(phytools)
 library(readxl)
 library(aplot)
+library(cowplot)
+library(fishtree)
 
 ```
 
@@ -43,68 +45,69 @@ ggsave(plot = p, height = 5, width = 3, filename = "fig4plot.png" )
 
 
 ```{r}
-##fig7tree
+#fig6 tree
+hap_afp_tree <- fishtree_phylogeny(
+  c("Lycodichthys dearborni", "Zoarces americanus", "Leptoclinus maculatus",
+    "Pholis gunnellus", "Cebidichthys violaceus", "Anarhichas minor", "Anarhichas lupus"),
+  type = c("chronogram"))
 
-#load data into object
+# Get the root age (total tree height)
+tree_age <- max(ggtree(hap_afp_tree)$data$x)
 
-owen_tree <- read.newick("C:/Users/omoos/OneDrive/Documents/zoarcoidei/SUPERMATRIX.phylip.treefile")
+# Format species names
+hap_afp_tree$tip.label <- gsub("_", " ", hap_afp_tree$tip.label)
+hap_afp_tree$tip.label <- paste0("italic('", hap_afp_tree$tip.label, "')")
 
-#relabel tips with correct sp. name
-
-owen_tree$tip.label <- c("Gasterosteus aculeatus", "Lycodes pacificus", "Lycodes diapterus", 
-                    "Ophthalmolycus amberensis", "Lycodes concolor", "Lycodes platyrhinus", 
-                    "Lycodichthys dearborni", "Melanostigma pammelas", "Melanostigma gelatinosum",
-                    "Zoarces viviparus", "Anarhichas minor", "Anarhichas lupus",
-                    "Pholis gunnellus", "Cryptacanthodes maculatus", "Leptoclinus maculatus", 
-                    "Anoplarchus purpurescens", "Cebidichthys violaceus", "Bathymaster signatus")
-#reroot tree with G. aculeatus as root
-
-owen_tree <- reroot(owen_tree, 
-             node.number = 1, 
-             position = .5*(max(owen_tree$edge.length)))
-
-#edit node labels to be in percentages rather than ratios
-
-owen_tree$node.label <- ifelse(owen_tree$node.label == "Root", "", 
-                               ifelse(owen_tree$node.label == "100/100", "100",
-                                      ifelse(owen_tree$node.label == "51/71", "72", owen_tree$node.label)))
-
-#remove species with no data
-
-rmtips <- c("Melanostigma pammelas", "Melanostigma gelatinosum", "Anoplarchus purpurescens")
-
-owen_tree <- drop.tip(owen_tree, rmtips)
-
-#plot tree
-
-tree <- ggtree(owen_tree) +
-  geom_tree(layout = "rectangular", size = 1) +
-  geom_tiplab(fontface = "italic", align = TRUE) +
-  xlim(0, .16) +
-  geom_treescale(x = .01, y = 10,)
-
+# Plot tree to see if it looks accurate
+tree_panel <- ggtree(hap_afp_tree) + 
+  geom_tiplab(fontface = "italic", parse = TRUE) + 
+  theme_tree2() +
+  labs(x = "Mya") +
+  scale_x_continuous(
+    limits = c(-2, tree_age + 20),  # Extends left for labels, ends at 0
+    breaks = tree_age - c(40, 30, 20, 10, 0),  
+    labels = c(40, 30, 20, 10, 0),
+    expand = c(0, 0)  # Ensures axis line ends at 0 without extra space
+  )
+tree_panel
 ```
 
 ```{r}
-##fig7 histogram
+##fig6 dotplot
 
-#import data from excel file
+#import data
 
-zoarcoidei_haplo_afp <- read_excel("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (3).xlsx", sheet = "graph")
+haplo_afp <- read_excel("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (15).xlsx", sheet = "fig_6")
 
 #order species by their appearance in the data set rather than alphabetically
 
-zoarcoidei_haplo_afp$Species <- factor(zoarcoidei_haplo_afp$Species, levels = unique(zoarcoidei_haplo_afp$Species))
+haplo_afp$species <- factor(haplo_afp$species, levels = unique(haplo_afp$species))
 
-#graph
+#plot
+dotplot <- ggplot(haplo_afp, aes(x = putative, y = interaction(array, species), colour = haplotype)) +
+  geom_point(position = position_dodge(width = 0.8), size = 3) +
+  geom_errorbar(aes(xmin = min, xmax = max), width = 0, size = 1.5, position = position_dodge(width = 0.8, preserve = "total")) +
+  scale_x_continuous(breaks = seq(0, 150, by = 10)) +
+  labs(y= "", x = "AFP Count") +
+  scale_color_manual(values = c("hap1" = "#ED1C24", "hap2" = "#00AEEF")) +
+  scale_y_discrete(limits = rev) +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(), plot.margin = margin(5, 5, 5, 0)) +
+   geom_text(aes(x = -20, label = array), hjust = 0.25 , size = 3, color = "black") +
 
-histogram <- ggplot(zoarcoidei_haplo_afp, aes(y = Haplotype, fill = Type)) + 
-  geom_bar(stat = "count") +
-  geom_text(stat = "count", aes(label = ..count..), position = position_stack(vjust = 0.5)) +
-  facet_wrap(~Species, ncol = 1) +
-  labs(y = "") +
-  theme_minimal()
+  # Use facets to separate species but remove labels
+  facet_wrap(~ species, scales = "free_y", ncol = 1) +
 
-figure <- plot_list(tree, histogram, labels = c('A', 'B'))
+  # Remove facet labels but keep spacing
+  theme_classic() +
+  theme(strip.text = element_blank(),  # Remove facet labels
+        panel.spacing = unit(0.5, "lines"),  # Increase spacing between species
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        plot.margin = margin(5, 5, 5, 0))
 
+#combine plots
+
+fig6 <- cowplot::plot_grid(tree_panel, dotplot, rel_widths = c(1,2))
+
+fig6
 ```
