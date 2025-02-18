@@ -60,11 +60,15 @@ hap_afp_tree$tip.label <- paste0("italic('", hap_afp_tree$tip.label, "')")
 
 # Plot tree to see if it looks accurate
 tree_panel <- ggtree(hap_afp_tree) + 
-  geom_tiplab(fontface = "italic", parse = TRUE) + 
+  geom_tiplab(fontface = "italic", parse = TRUE, size = 6.5) + 
   theme_tree2() +
+  geom_tree(size = 1.5) +
   labs(x = "Mya") +
+  theme(
+    axis.title.x = element_text(size = 20),
+    axis.text.x = element_text(size = 15)) +
   scale_x_continuous(
-    limits = c(-2, tree_age + 20),  # Extends left for labels, ends at 0
+    limits = c(-2, tree_age + 25),  # Extends left for labels, ends at 0
     breaks = tree_age - c(40, 30, 20, 10, 0),  
     labels = c(40, 30, 20, 10, 0),
     expand = c(0, 0)  # Ensures axis line ends at 0 without extra space
@@ -77,37 +81,54 @@ tree_panel
 
 #import data
 
-haplo_afp <- read_excel("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (15).xlsx", sheet = "fig_6")
+haplo_afp <- read_excel("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (16).xlsx", sheet = "fig_6")
 
 #order species by their appearance in the data set rather than alphabetically
 
 haplo_afp$species <- factor(haplo_afp$species, levels = unique(haplo_afp$species))
 
-#plot
-dotplot <- ggplot(haplo_afp, aes(x = putative, y = interaction(array, species), colour = haplotype)) +
+#change NA to "" in order to remove NA label in legend
+haplo_afp$haplotype <- as.character(haplo_afp$haplotype)  # Convert to character
+haplo_afp$haplotype[is.na(haplo_afp$haplotype)] <- ""  # Replace NA with empty string
+haplo_afp$haplotype <- factor(haplo_afp$haplotype)  # Convert back to factor
+
+# plot
+dotplot <- ggplot(haplo_afp, aes(
+                              x = median,
+                              y = interaction(array, species), 
+                              colour = haplotype)) +
   geom_point(position = position_dodge(width = 0.8), size = 3) +
-  geom_errorbar(aes(xmin = min, xmax = max), width = 0, size = 1.5, position = position_dodge(width = 0.8, preserve = "total")) +
+  geom_errorbar(aes(
+                xmin = min, xmax = max), 
+                width = 0, 
+                size = 1, 
+                position = position_dodge(width = 0.8, preserve = "total")) +
   scale_x_continuous(breaks = seq(0, 150, by = 10)) +
-  labs(y= "", x = "AFP Count") +
-  scale_color_manual(values = c("hap1" = "#ED1C24", "hap2" = "#00AEEF")) +
   scale_y_discrete(limits = rev) +
-  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(), plot.margin = margin(5, 5, 5, 0)) +
-   geom_text(aes(x = -20, label = array), hjust = 0.25 , size = 3, color = "black") +
+  labs(y = "", x = "AFP Count") +
+  scale_color_manual(values = c("hap1" = "#D71920", "hap2" = "#5BCBF5")) +
+  
+  # Add group labels
+  geom_text(aes(x = -20, label = array), hjust = 0.25, size = 5, color = "black") +
 
   # Use facets to separate species but remove labels
   facet_wrap(~ species, scales = "free_y", ncol = 1) +
 
-  # Remove facet labels but keep spacing
+  # adjust theme
   theme_classic() +
   theme(strip.text = element_blank(),  # Remove facet labels
         panel.spacing = unit(0.5, "lines"),  # Increase spacing between species
-        axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),  # Remove y-axis text
+        axis.ticks.y = element_blank(),  # Remove y-axis ticks
+        axis.title.x = element_text(size = 20),# change size of x axis text
+        axis.text.x = element_text(size = 15),
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 15),
         plot.margin = margin(5, 5, 5, 0))
 
 #combine plots
 
-fig6 <- cowplot::plot_grid(tree_panel, dotplot, rel_widths = c(1,2))
+fig6 <- cowplot::plot_grid(tree_panel, dotplot, rel_widths = c(1,1.3))
 
 fig6
 ```
