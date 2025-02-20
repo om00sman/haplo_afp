@@ -34,7 +34,7 @@ export TMPDIR=/hb/scratch/omoosman
 
 #check proportion of reads that aligned in orginal alignment 
 
-samtools view your_file.bam | awk '{print $1}' | sort | uniq > aligned_reads.txt
+samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f read_ids.txt aligned_reads.txt | wc -l
 
 ## alignment with ccs preset
 
