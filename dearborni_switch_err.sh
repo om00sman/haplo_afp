@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=zoarcoidei_switch_err
+#SBATCH --job-name=dearborni_switch_err
 #SBATCH --mail-user=omoosman@ucsc.edu
 #SBATCH --mail-type=ALL
-#SBATCH --output=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/switch_err/switch_%A_%a.out
-#SBATCH --error=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/switch_err/switch_%A_%a.err
+#SBATCH --output=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/switch_err/dearborni_%A_%a.out
+#SBATCH --error=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/switch_err/dearborni_%A_%a.err
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=12
@@ -31,12 +31,32 @@ file=/hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz
 
 export TMPDIR=/hb/scratch/omoosman
 
+###original alignment 
 
-#check proportion of reads that aligned in orginal alignment 
-m=$(wc -l 
-=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f read_ids.txt aligned_reads.txt | wc -l)
+##check proportion of reads that aligned in orginal alignment 
 
-## alignment with ccs preset
+#calculate number of reads of each type
+m=$(wc -l "$out/${name}_m.txt" | awk '{print $1}')
+a=$(wc -l "$out/${name}_a.txt" | awk '{print $1}')
+p=$(wc -l "$out/${name}_p.txt" | awk '{print $1}')
+
+#calculate the number of reads of each type in the .bam file
+o_m=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
+o_a=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
+o_p=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
+
+#calculate proportions with decimal places
+proportion_o_m=$(echo "scale=4; $original_m / $m" | bc)
+proportion_o_a=$(echo "scale=4; $original_a / $a" | bc)
+proportion_o_p=$(echo "scale=4; $original_p / $p" | bc)
+
+#output in easily readable format
+echo "The proportion of hap1 reads that align to the original aligment is $proportion_o_p" >> "$out/proportion.txt"
+echo "The proportion of hap2 reads that align to the original aligment is $proportion_o_m" >> "$out/proportion.txt"
+echo "The proportion of hap2 reads that align to the original aligment is $proportion_o_m" >> "$out/proportion.txt"
+echo "" >> "$out/proportion.txt"
+
+###alignment with ccs preset
 
 pbmm2 align --sort --preset CCS "$in/${name}_ref.fasta" $file "$out/${name}_ccs_alignment.sorted.bam"
 
@@ -53,6 +73,25 @@ samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_ccs_alignment.filt.sor
 samtools index "$out/${name}_ccs_m_a_alignment.filt.sorted.bam"
 
 samtools index "$out/${name}_ccs_p_a_alignment.filt.sorted.bam"
+
+##check proportion of reads that aligned in orginal alignment 
+
+#calculate the number of reads of each type in the .bam file
+ccs_m=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
+ccs_a=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
+ccs_p=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
+
+#calculate proportions with decimal places
+proportion__ccs_m=$(echo "scale=4; $original_m / $m" | bc)
+proportion__ccs_a=$(echo "scale=4; $original_a / $a" | bc)
+proportion__ccs_p=$(echo "scale=4; $original_p / $p" | bc)
+
+#output in easily readable format
+echo "The proportion of hap1 reads that align to the original aligment is $proportion_p" >> "$out/proportion.txt"
+echo "The proportion of hap2 reads that align to the original aligment is $proportion_m" >> "$out/proportion.txt"
+echo "The proportion of hap2 reads that align to the original aligment is $proportion_m" >> "$out/proportion.txt"
+echo "" >> "$out/proportion.txt"
+
 
 
 
