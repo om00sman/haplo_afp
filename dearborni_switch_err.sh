@@ -15,6 +15,7 @@
 
 # loading required modules + conda environment
 
+module load samtools
 module load miniconda3
 conda activate pbmm2 
 
@@ -35,6 +36,12 @@ export TMPDIR=/hb/scratch/omoosman
 
 pbmm2 align --sort --preset CCS "$in/${name}_ref.fasta" $file "$out/${name}_ccs_alignment.sorted.bam"
 
+samtools view -bh "$out/${name}_ccs_alignment.sorted.bam" h1tg000019l h2tg000034l -o "$out/${name}_ccs_alignment.filt.sorted.bam"
+
+
+
 # alignment with less stringent parameters
 
 pbmm2 align --sort --preset CCS --min-idt 0.7 --min-score 50 --best-n 5 "$in/${name}_ref.fasta" $file "$out/${name}_lenient_alignment.sorted.bam"
+
+samtools view -bh "$out/${name}_lenient_alignment.sorted.bam" h1tg000019l h2tg000034l -o "$out/${name}_lenient_alignment.filt.sorted.bam"
