@@ -32,16 +32,20 @@ file=/hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz
 export TMPDIR=/hb/scratch/omoosman
 
 
-# alignment with ccs preset
+## alignment with ccs preset
 
 pbmm2 align --sort --preset CCS "$in/${name}_ref.fasta" $file "$out/${name}_ccs_alignment.sorted.bam"
+
+#filter for only regions with AFPs
 
 samtools view -bh "$out/${name}_ccs_alignment.sorted.bam" h1tg000019l h2tg000034l -o "$out/${name}_ccs_alignment.filt.sorted.bam"
 
 
 
-# alignment with less stringent parameters
+## alignment with less stringent parameters
 
 pbmm2 align --sort --preset CCS --min-idt 0.7 --min-score 50 --best-n 5 "$in/${name}_ref.fasta" $file "$out/${name}_lenient_alignment.sorted.bam"
+
+#filter for only regions with AFPs
 
 samtools view -bh "$out/${name}_lenient_alignment.sorted.bam" h1tg000019l h2tg000034l -o "$out/${name}_lenient_alignment.filt.sorted.bam"
