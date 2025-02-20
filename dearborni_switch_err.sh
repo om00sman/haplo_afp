@@ -21,4 +21,13 @@ conda activate pbmm2
 # defining variables
 
 in=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/l_dearborni
+raw=/hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/l_dearborni
 out=/hb/home/omoosman/owen/zoarcoidei/analysis/realignment/l_dearborni
+
+#set the tmpdir
+
+export TMPDIR=/hb/scratch/omoosman
+
+# alignment
+
+pbmm2 align "$in/${name}_ref.fasta" "$raw/ "$out/${name}_alignment.sorted.bam" --sort
