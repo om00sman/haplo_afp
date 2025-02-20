@@ -115,9 +115,9 @@ samtools index "$out/${name}_lenient_p_a_alignment.filt.sorted.bam"
 ##check proportion of reads that aligned in lenient alignment 
 
 #calculate the number of reads of each type in the .bam file
-lax_m=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
-lax_a=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
-lax_p=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
+lax_m=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
+lax_a=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
+lax_p=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
 proportion_lax_m=$(echo "scale=4; $lax_m / $m" | bc)
