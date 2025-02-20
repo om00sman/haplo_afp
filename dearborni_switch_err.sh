@@ -32,6 +32,10 @@ file=/hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz
 export TMPDIR=/hb/scratch/omoosman
 
 
+#check proportion of reads that aligned in orginal alignment 
+
+samtools view your_file.bam | awk '{print $1}' | sort | uniq > aligned_reads.txt
+
 ## alignment with ccs preset
 
 pbmm2 align --sort --preset CCS "$in/${name}_ref.fasta" $file "$out/${name}_ccs_alignment.sorted.bam"
