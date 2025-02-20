@@ -7,7 +7,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=12
-#SBATCH --mem=70GB
+#SBATCH --mem=75GB
 #SBATCH --time=5-00:00:00
 
 
@@ -56,6 +56,7 @@ echo "The proportion of hap2 reads that align to the original aligment is $propo
 echo "The proportion of unphased reads that align to the original aligment is $proportion_o_a" >> "$out/proportion.txt"
 echo "" >> "$out/proportion.txt"
 
+
 ###alignment with ccs preset
 
 pbmm2 align --sort --preset CCS "$in/${name}_ref.fasta" $file "$out/${name}_ccs_alignment.sorted.bam"
@@ -82,20 +83,18 @@ ccs_a=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}'
 ccs_p=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
-proportion__ccs_m=$(echo "scale=4; $ccs_m / $m" | bc)
-proportion__ccs_a=$(echo "scale=4; $ccs_a / $a" | bc)
-proportion__ccs_p=$(echo "scale=4; $ccs_p / $p" | bc)
+proportion_ccs_m=$(echo "scale=4; $ccs_m / $m" | bc)
+proportion_ccs_a=$(echo "scale=4; $ccs_a / $a" | bc)
+proportion_ccs_p=$(echo "scale=4; $ccs_p / $p" | bc)
 
 #output in easily readable format
-echo "The proportion of hap1 reads that align to the original aligment is $proportion__ccs_m" >> "$out/proportion.txt"
-echo "The proportion of hap2 reads that align to the original aligment is $proportion__ccs_m" >> "$out/proportion.txt"
-echo "The proportion of hap2 reads that align to the original aligment is $proportion__ccs_m" >> "$out/proportion.txt"
+echo "The proportion of hap1 reads that align to the ccs aligment is $proportion_ccs_p" >> "$out/proportion.txt"
+echo "The proportion of hap2 reads that align to the ccs aligment is $proportion_ccs_m" >> "$out/proportion.txt"
+echo "The proportion of unphased reads that align to the ccs aligment is $proportion_ccs_a" >> "$out/proportion.txt"
 echo "" >> "$out/proportion.txt"
 
 
-
-
-## alignment with less stringent parameters
+###alignment with less stringent parameters
 
 pbmm2 align --sort --preset CCS --min-idt 0.7 --min-score 50 --best-n 5 "$in/${name}_ref.fasta" $file "$out/${name}_lenient_alignment.sorted.bam"
 
@@ -112,3 +111,21 @@ samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_lenient_alignment.filt
 samtools index "$out/${name}_lenient_m_a_alignment.filt.sorted.bam"
 
 samtools index "$out/${name}_lenient_p_a_alignment.filt.sorted.bam"
+
+##check proportion of reads that aligned in lenient alignment 
+
+#calculate the number of reads of each type in the .bam file
+lax_m=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
+lax_a=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
+lax_p=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
+
+#calculate proportions with decimal places
+proportion_lax_m=$(echo "scale=4; $lax_m / $m" | bc)
+proportion_lax_a=$(echo "scale=4; $lax_a / $a" | bc)
+proportion_lax_p=$(echo "scale=4; $lax_p / $p" | bc)
+
+#output in easily readable format
+echo "The proportion of hap1 reads that align to the lenient aligment is $proportion_lax_p" >> "$out/proportion.txt"
+echo "The proportion of hap2 reads that align to the lenient aligment is $proportion_lax_m" >> "$out/proportion.txt"
+echo "The proportion of unphased reads that align to the lenient aligment is $proportion_lax_a" >> "$out/proportion.txt"
+echo "" >> "$out/proportion.txt"
