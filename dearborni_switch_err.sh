@@ -2,6 +2,9 @@
 #SBATCH --job-name=dearborni_switch_err
 #SBATCH --mail-user=omoosman@ucsc.edu
 #SBATCH --mail-type=ALL
+#SBATCH --account=pi-jkoc
+#SBATCH --partition=lab-colibri
+#SBATCH --qos=pi-jkoc
 #SBATCH --output=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/switch_err/dearborni_%A_%a.out
 #SBATCH --error=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/switch_err/dearborni_%A_%a.err
 #SBATCH --nodes=1
