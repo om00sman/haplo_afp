@@ -59,3 +59,13 @@ pbmm2 align --sort --preset CCS --min-idt 0.7 --min-score 50 --best-n 5 "$in/${n
 #filter for only regions with AFPs
 
 samtools view -bh "$out/${name}_lenient_alignment.sorted.bam" h1tg000019l h2tg000034l -o "$out/${name}_lenient_alignment.filt.sorted.bam"
+
+#filter by reads aligning to each haplotype and index output
+
+samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_lenient_alignment.filt.sorted.bam" > "$out/${name}_lenient_m_a_alignment.filt.sorted.bam"
+
+samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_lenient_alignment.filt.sorted.bam" > "$out/${name}_lenient_p_a_alignment.filt.sorted.bam"
+
+samtools index "$out/${name}_lenient_m_a_alignment.filt.sorted.bam"
+
+samtools index "$out/${name}_lenient_p_a_alignment.filt.sorted.bam"
