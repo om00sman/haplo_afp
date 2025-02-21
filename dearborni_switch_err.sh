@@ -96,7 +96,7 @@ echo "" >> "$out/proportion.txt"
 
 ###alignment with less stringent parameters
 
-pbmm2 align --sort --preset CCS --min-idt 0.7 --min-score 50 --best-n 5 "$in/${name}_ref.fasta" $file "$out/${name}_lenient_alignment.sorted.bam"
+pbmm2 align --sort --preset CCS -min-id-perc 70 -min-concordance-perc 50 --best-n 5 "$in/${name}_ref.fasta" $file "$out/${name}_lenient_alignment.sorted.bam"
 
 #filter for only regions with AFPs
 
