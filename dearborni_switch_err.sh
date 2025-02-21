@@ -46,9 +46,9 @@ o_a=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | gre
 o_p=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
-proportion_o_m=$(echo "scale=4; $o_m / $m" | bc)
-proportion_o_a=$(echo "scale=4; $o_a / $a" | bc)
-proportion_o_p=$(echo "scale=4; $o_p / $p" | bc)
+proportion_o_m=$(awk "BEGIN {print $o_m / $m}")
+proportion_o_a=$(awk "BEGIN {print $o_a / $a}")
+proportion_o_p=$(awk "BEGIN {print $o_p / $p}")
 
 #output in easily readable format
 echo "The proportion of hap1 reads that align to the original aligment is $proportion_o_p" >> "$out/proportion.txt"
@@ -83,9 +83,9 @@ ccs_a=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}'
 ccs_p=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
-proportion_ccs_m=$(echo "scale=4; $ccs_m / $m" | bc)
-proportion_ccs_a=$(echo "scale=4; $ccs_a / $a" | bc)
-proportion_ccs_p=$(echo "scale=4; $ccs_p / $p" | bc)
+proportion_ccs_m=$(awk "BEGIN {print $ccs_m / $m}")
+proportion_ccs_a=$(awk "BEGIN {print $ccs_a / $a}")
+proportion_ccs_p=$(awk "BEGIN {print $ccs_p / $p}")
 
 #output in easily readable format
 echo "The proportion of hap1 reads that align to the ccs aligment is $proportion_ccs_p" >> "$out/proportion.txt"
@@ -120,9 +120,9 @@ lax_a=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print 
 lax_p=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
-proportion_lax_m=$(echo "scale=4; $lax_m / $m" | bc)
-proportion_lax_a=$(echo "scale=4; $lax_a / $a" | bc)
-proportion_lax_p=$(echo "scale=4; $lax_p / $p" | bc)
+proportion_lax_m=$(awk "BEGIN {print $lax_m / $m}")
+proportion_lax_a=$(awk "BEGIN {print $lax_a / $a}")
+proportion_lax_p=$(awk "BEGIN {print $lax_p / $p}")
 
 #output in easily readable format
 echo "The proportion of hap1 reads that align to the lenient aligment is $proportion_lax_p" >> "$out/proportion.txt"
