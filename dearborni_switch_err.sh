@@ -51,9 +51,9 @@ proportion_o_a=$(awk "BEGIN {print $o_a / $a}")
 proportion_o_p=$(awk "BEGIN {print $o_p / $p}")
 
 #output in easily readable format
-echo "The proportion of hap1 reads that align to the original aligment is $proportion_o_p" >> "$out/proportion.txt"
-echo "The proportion of hap2 reads that align to the original aligment is $proportion_o_m" >> "$out/proportion.txt"
-echo "The proportion of unphased reads that align to the original aligment is $proportion_o_a" >> "$out/proportion.txt"
+echo "The proportion of hap1 reads that align to the original alignment is $proportion_o_p" >> "$out/proportion.txt"
+echo "The proportion of hap2 reads that align to the original alignment is $proportion_o_m" >> "$out/proportion.txt"
+echo "The proportion of unphased reads that align to the original alignment is $proportion_o_a" >> "$out/proportion.txt"
 echo "" >> "$out/proportion.txt"
 
 
