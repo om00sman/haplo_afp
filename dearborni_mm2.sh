@@ -42,6 +42,8 @@ minimap2 -ax map-hifi -o "$out/${name}_mm2_alignment.sorted.sam" "$in/${name}_re
 
 samtools view -bh "$out/${name}_mm2_alignment.sorted.sam" -o "$out/${name}_mm2_alignment.sorted.bam"
 
+samtools index -o "$out/${name}_mm2_alignment.sorted.bam" "$out/${name}_mm2_alignment.sorted.bam"
+
 samtools index "$out/${name}_mm2_alignment.sorted.bam"
 
 samtools view -bh "$out/${name}_mm2_alignment.sorted.bam" h1tg000019l h2tg000034l -o "$out/${name}_mm2_alignment.filt.sorted.bam"
