@@ -36,13 +36,13 @@ export TMPDIR=/hb/scratch/omoosman
 
 ###alignment with less stringent parameters
 
-minimap2 -ax map-hifi -o "$out/${name}_mm2_alignment.sorted.sam" "$in/${name}_ref.fasta" $file
+minimap2 -ax map-hifi -o "$out/${name}_mm2_alignment.sam" "$in/${name}_ref.fasta" $file
 
 #filter for only regions with AFPs and convert to bam
 
-samtools view -bh "$out/${name}_mm2_alignment.sorted.sam" -o "$out/${name}_mm2_alignment.sorted.bam"
+samtools view -bh "$out/${name}_mm2_alignment.sam" -o "$out/${name}_mm2_alignment.bam"
 
-samtools index -o "$out/${name}_mm2_alignment.sorted.bam" "$out/${name}_mm2_alignment.sorted.bam"
+samtools sort -o "$out/${name}_mm2_alignment.sorted.bam" "$out/${name}_mm2_alignment.bam"
 
 samtools index "$out/${name}_mm2_alignment.sorted.bam"
 
