@@ -44,9 +44,9 @@ a=$(wc -l "$out/${name}_a.txt" | awk '{print $1}')
 p=$(wc -l "$out/${name}_p.txt" | awk '{print $1}')
 
 #calculate the number of reads of each type in the .bam file
-o_m=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
-o_a=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
-o_p=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
+o_m=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
+o_a=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
+o_p=$(samtools view "$out/${name}_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
 proportion_o_m=$(awk "BEGIN {print $o_m / $m}")
@@ -83,9 +83,9 @@ samtools index "$out/${name}_ccs_p_a_alignment.filt.sorted.bam"
 ##check proportion of reads that aligned in ccs alignment 
 
 #calculate the number of reads of each type in the .bam file
-ccs_m=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
-ccs_a=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
-ccs_p=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
+ccs_m=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
+ccs_a=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
+ccs_p=$(samtools view "$out/${name}_ccs_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
 proportion_ccs_m=$(awk "BEGIN {print $ccs_m / $m}")
@@ -122,9 +122,9 @@ samtools index "$out/${name}_lenient_p_a_alignment.filt.sorted.bam"
 ##check proportion of reads that aligned in lenient alignment 
 
 #calculate the number of reads of each type in the .bam file
-lax_m=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
-lax_a=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
-lax_p=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
+lax_m=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
+lax_a=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
+lax_p=$(samtools view "$out/${name}_lenient_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
 proportion_lax_m=$(awk "BEGIN {print $lax_m / $m}")
@@ -165,9 +165,9 @@ a=$(wc -l "$out/${name}_a.txt" | awk '{print $1}')
 p=$(wc -l "$out/${name}_p.txt" | awk '{print $1}')
 
 #calculate the number of reads of each type in the .bam file
-id50_m=$(samtools view "$out/${name}_id50_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
-id50_a=$(samtools view "$out/${name}_id50_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
-id50_p=$(samtools view "$out/${name}_id50_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
+id50_m=$(samtools view "$out/${name}_id50_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
+id50_a=$(samtools view "$out/${name}_id50_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
+id50_p=$(samtools view "$out/${name}_id50_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
 proportion_m=$(awk "BEGIN {print $id50_m / $m}")
