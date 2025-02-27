@@ -66,9 +66,9 @@ a=$(wc -l "$out/${name}_a.txt" | awk '{print $1}')
 p=$(wc -l "$out/${name}_p.txt" | awk '{print $1}')
 
 #calculate the number of reads of each type in the .bam file
-mm2_m=$(samtools view "$out/${name}_mm2_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
-mm2_a=$(samtools view "$out/${name}_mm2_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
-mm2_p=$(samtools view "$out/${name}_mm2_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
+mm2_m=$(samtools view "$out/${name}_mm2_alignment.sorted.bam" | awk '{print $1}' | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
+mm2_a=$(samtools view "$out/${name}_mm2_alignment.sorted.bam" | awk '{print $1}' | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
+mm2_p=$(samtools view "$out/${name}_mm2_alignment.sorted.bam" | awk '{print $1}' | uniq |grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
 proportion_mm2_m=$(awk "BEGIN {print $mm2_m / $m}")
