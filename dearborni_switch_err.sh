@@ -66,6 +66,8 @@ pbmm2 align --sort --preset CCS "$in/${name}_ref.fasta" $file "$out/${name}_ccs_
 
 #filter for only regions with AFPs
 
+samtools index "$out/${name}_ccs_alignment.sorted.bam"
+
 samtools view -bh "$out/${name}_ccs_alignment.sorted.bam" h1tg000019l h2tg000034l -o "$out/${name}_ccs_alignment.filt.sorted.bam"
 
 #filter by reads aligning to each haplotype and index output
@@ -103,6 +105,8 @@ pbmm2 align --preset CCS --sort --min-id-perc 70 --min-concordance-perc 50 --bes
 
 #filter for only regions with AFPs
 
+samtools index "$out/${name}_lenient_alignment.sorted.bam"
+
 samtools view -bh "$out/${name}_lenient_alignment.sorted.bam" h1tg000019l h2tg000034l -o "$out/${name}_lenient_alignment.filt.sorted.bam"
 
 #filter by reads aligning to each haplotype and index output
@@ -131,4 +135,47 @@ proportion_lax_p=$(awk "BEGIN {print $lax_p / $p}")
 echo "The proportion of hap1 reads that align to the lenient aligment is $proportion_lax_p" >> "$out/proportion.txt"
 echo "The proportion of hap2 reads that align to the lenient aligment is $proportion_lax_m" >> "$out/proportion.txt"
 echo "The proportion of unphased reads that align to the lenient aligment is $proportion_lax_a" >> "$out/proportion.txt"
+echo "" >> "$out/proportion.txt"
+
+###alignment with even less stringent parameters
+
+pbmm2 align --preset CCS --sort --min-id-perc 50 --min-concordance-perc 40 --best-n 5 "$in/${name}_ref.fasta" $file "$out/${name}_id50_alignment.sorted.bam"
+
+#filter for only regions with AFPs
+
+samtools index "$out/${name}_id50_alignment.sorted.bam"
+
+samtools view -bh "$out/${name}_id50_alignment.sorted.bam" h1tg000019l h2tg000034l -o "$out/${name}_id50_alignment.filt.sorted.bam"
+
+#filter by reads aligning to each haplotype and index output
+
+samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_id50_alignment.filt.sorted.bam" > "$out/${name}_id50_m_a_alignment.filt.sorted.bam"
+
+samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_id50_alignment.filt.sorted.bam" > "$out/${name}_id50_p_a_alignment.filt.sorted.bam"
+
+samtools index "$out/${name}_id50_m_a_alignment.filt.sorted.bam"
+
+samtools index "$out/${name}_id50_p_a_alignment.filt.sorted.bam"
+
+##check proportion of reads that aligned in lenient alignment 
+
+#calculate number of reads of each type
+m=$(wc -l "$out/${name}_m.txt" | awk '{print $1}')
+a=$(wc -l "$out/${name}_a.txt" | awk '{print $1}')
+p=$(wc -l "$out/${name}_p.txt" | awk '{print $1}')
+
+#calculate the number of reads of each type in the .bam file
+id50_m=$(samtools view "$out/${name}_id50_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_m.txt" | wc -l)
+id50_a=$(samtools view "$out/${name}_id50_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_a.txt" | wc -l)
+id50_p=$(samtools view "$out/${name}_id50_alignment.sorted.bam" | awk '{print $1}' | grep -F -f "$out/${name}_p.txt" | wc -l)
+
+#calculate proportions with decimal places
+proportion_m=$(awk "BEGIN {print $id50_m / $m}")
+proportion_a=$(awk "BEGIN {print $id50_a / $a}")
+proportion_p=$(awk "BEGIN {print $id50_p / $p}")
+
+#output in easily readable format
+echo "The proportion of hap1 reads that align to the 50% identity aligment is $proportion_p" >> "$out/proportion.txt"
+echo "The proportion of hap2 reads that align to the 50% identity aligment is $proportion_m" >> "$out/proportion.txt"
+echo "The proportion of unphased reads that align to the 50% identity aligment is $proportion_a" >> "$out/proportion.txt"
 echo "" >> "$out/proportion.txt"
