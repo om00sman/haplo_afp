@@ -44,13 +44,13 @@ samtools index "$out/${name}_hap1s_alignment.sorted.bam"
 
 #filter by reads aligning to each haplotype and index output
 
-samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_hap1s_alignment.filt.sorted.bam" > "$out/${name}_hap1s_m_a_alignment.filt.sorted.bam"
+samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_hap1s_alignment.sorted.bam" > "$out/${name}_hap1s_m_a_alignment.sorted.bam"
 
-samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_hap1s_alignment.filt.sorted.bam" > "$out/${name}_hap1s_p_a_alignment.filt.sorted.bam"
+samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_hap1s_alignment.sorted.bam" > "$out/${name}_hap1s_p_a_alignment.sorted.bam"
 
-samtools index "$out/${name}_hap1s_m_a_alignment.filt.sorted.bam"
+samtools index "$out/${name}_hap1s_m_a_alignment.sorted.bam"
 
-samtools index "$out/${name}_hap1s_p_a_alignment.filt.sorted.bam"
+samtools index "$out/${name}_hap1s_p_a_alignment.sorted.bam"
 
 ##check proportion of reads that aligned in utg alignment 
 
@@ -60,14 +60,14 @@ a=$(wc -l "$out/${name}_a.txt" | awk '{print $1}')
 p=$(wc -l "$out/${name}_p.txt" | awk '{print $1}')
 
 #calculate the number of reads of each type in the .bam file
-1s_m=$(samtools view "$out/${name}_hap1s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
-1s_a=$(samtools view "$out/${name}_hap1s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
-1s_p=$(samtools view "$out/${name}_hap1s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
+hap1s_m=$(samtools view "$out/${name}_hap1s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
+hap1s_a=$(samtools view "$out/${name}_hap1s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
+hap1s_p=$(samtools view "$out/${name}_hap1s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
-proportion_1s_m=$(awk "BEGIN {print $ccs_m / $m}")
-proportion_1s_a=$(awk "BEGIN {print $ccs_a / $a}")
-proportion_1s_p=$(awk "BEGIN {print $ccs_p / $p}")
+proportion_1s_m=$(awk "BEGIN {print $hap1s_m / $m}")
+proportion_1s_a=$(awk "BEGIN {print $hap1s_a / $a}")
+proportion_1s_p=$(awk "BEGIN {print $hap1s_p / $p}")
 
 #output in easily readable format
 echo "The proportion of hap1 reads that align to the hap1 shortest utg assembly is $proportion_1s_p" >> "$out/proportion.txt"
@@ -85,13 +85,13 @@ samtools index "$out/${name}_hap1l_alignment.sorted.bam"
 
 #filter by reads aligning to each haplotype and index output
 
-samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_hap1l_alignment.filt.sorted.bam" > "$out/${name}_hap1l_m_a_alignment.filt.sorted.bam"
+samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_hap1l_alignment.sorted.bam" > "$out/${name}_hap1l_m_a_alignment.sorted.bam"
 
-samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_hap1l_alignment.filt.sorted.bam" > "$out/${name}_hap1l_p_a_alignment.filt.sorted.bam"
+samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_hap1l_alignment.sorted.bam" > "$out/${name}_hap1l_p_a_alignment.sorted.bam"
 
-samtools index "$out/${name}_hap1l_m_a_alignment.filt.sorted.bam"
+samtools index "$out/${name}_hap1l_m_a_alignment.sorted.bam"
 
-samtools index "$out/${name}_hap1l_p_a_alignment.filt.sorted.bam"
+samtools index "$out/${name}_hap1l_p_a_alignment.sorted.bam"
 
 ##check proportion of reads that aligned in utg alignment 
 
@@ -101,14 +101,14 @@ a=$(wc -l "$out/${name}_a.txt" | awk '{print $1}')
 p=$(wc -l "$out/${name}_p.txt" | awk '{print $1}')
 
 #calculate the number of reads of each type in the .bam file
-1l_m=$(samtools view "$out/${name}_hap1l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
-1l_a=$(samtools view "$out/${name}_hap1l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
-1l_p=$(samtools view "$out/${name}_hap1l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
+hap1l_m=$(samtools view "$out/${name}_hap1l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
+hap1l_a=$(samtools view "$out/${name}_hap1l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
+hap1l_p=$(samtools view "$out/${name}_hap1l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
-proportion_1l_m=$(awk "BEGIN {print $ccs_m / $m}")
-proportion_1l_a=$(awk "BEGIN {print $ccs_a / $a}")
-proportion_1l_p=$(awk "BEGIN {print $ccs_p / $p}")
+proportion_1l_m=$(awk "BEGIN {print $hap1l_m / $m}")
+proportion_1l_a=$(awk "BEGIN {print $hap1l_a / $a}")
+proportion_1l_p=$(awk "BEGIN {print $hap1l_p / $p}")
 
 #output in easily readable format
 echo "The proportion of hap1 reads that align to the hap1 longest utg assembly is $proportion_1l_p" >> "$out/proportion.txt"
@@ -126,13 +126,13 @@ samtools index "$out/${name}_hap2s_alignment.sorted.bam"
 
 #filter by reads aligning to each haplotype and index output
 
-samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_hap2s_alignment.filt.sorted.bam" > "$out/${name}_hap2s_m_a_alignment.filt.sorted.bam"
+samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_hap2s_alignment.sorted.bam" > "$out/${name}_hap2s_m_a_alignment.sorted.bam"
 
-samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_hap2s_alignment.filt.sorted.bam" > "$out/${name}_hap2s_p_a_alignment.filt.sorted.bam"
+samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_hap2s_alignment.sorted.bam" > "$out/${name}_hap2s_p_a_alignment.sorted.bam"
 
-samtools index "$out/${name}_hap2s_m_a_alignment.filt.sorted.bam"
+samtools index "$out/${name}_hap2s_m_a_alignment.sorted.bam"
 
-samtools index "$out/${name}_hap2s_p_a_alignment.filt.sorted.bam"
+samtools index "$out/${name}_hap2s_p_a_alignment.sorted.bam"
 
 ##check proportion of reads that aligned in utg alignment 
 
@@ -142,14 +142,14 @@ a=$(wc -l "$out/${name}_a.txt" | awk '{print $1}')
 p=$(wc -l "$out/${name}_p.txt" | awk '{print $1}')
 
 #calculate the number of reads of each type in the .bam file
-2s_m=$(samtools view "$out/${name}_hap2s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
-2s_a=$(samtools view "$out/${name}_hap2s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
-2s_p=$(samtools view "$out/${name}_hap2s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
+hap2s_m=$(samtools view "$out/${name}_hap2s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
+hap2s_a=$(samtools view "$out/${name}_hap2s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
+hap2s_p=$(samtools view "$out/${name}_hap2s_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
-proportion_2s_m=$(awk "BEGIN {print $ccs_m / $m}")
-proportion_2s_a=$(awk "BEGIN {print $ccs_a / $a}")
-proportion_2s_p=$(awk "BEGIN {print $ccs_p / $p}")
+proportion_2s_m=$(awk "BEGIN {print $hap2s_m / $m}")
+proportion_2s_a=$(awk "BEGIN {print $hap2s_a / $a}")
+proportion_2s_p=$(awk "BEGIN {print $hap2s_p / $p}")
 
 #output in easily readable format
 echo "The proportion of hap1 reads that align to the hap2 shortest utg assembly is $proportion_2s_p" >> "$out/proportion.txt"
@@ -167,13 +167,13 @@ samtools index "$out/${name}_hap2l_alignment.sorted.bam"
 
 #filter by reads aligning to each haplotype and index output
 
-samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_hap2l_alignment.filt.sorted.bam" > "$out/${name}_hap2l_m_a_alignment.filt.sorted.bam"
+samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_hap2l_alignment.sorted.bam" > "$out/${name}_hap2l_m_a_alignment.sorted.bam"
 
-samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_hap2l_alignment.filt.sorted.bam" > "$out/${name}_hap2l_p_a_alignment.filt.sorted.bam"
+samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_hap2l_alignment.sorted.bam" > "$out/${name}_hap2l_p_a_alignment.sorted.bam"
 
-samtools index "$out/${name}_hap2l_m_a_alignment.filt.sorted.bam"
+samtools index "$out/${name}_hap2l_m_a_alignment.sorted.bam"
 
-samtools index "$out/${name}_hap2l_p_a_alignment.filt.sorted.bam"
+samtools index "$out/${name}_hap2l_p_a_alignment.sorted.bam"
 
 ##check proportion of reads that aligned in utg alignment 
 
@@ -183,14 +183,14 @@ a=$(wc -l "$out/${name}_a.txt" | awk '{print $1}')
 p=$(wc -l "$out/${name}_p.txt" | awk '{print $1}')
 
 #calculate the number of reads of each type in the .bam file
-2l_m=$(samtools view "$out/${name}_hap2l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
-2l_a=$(samtools view "$out/${name}_hap2l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
-2l_p=$(samtools view "$out/${name}_hap2l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
+hap2l_m=$(samtools view "$out/${name}_hap2l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_m.txt" | wc -l)
+hap2l_a=$(samtools view "$out/${name}_hap2l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_a.txt" | wc -l)
+hap2l_p=$(samtools view "$out/${name}_hap2l_alignment.sorted.bam" | awk '{print $1}' | sort | uniq | grep -F -f "$out/${name}_p.txt" | wc -l)
 
 #calculate proportions with decimal places
-proportion_2l_m=$(awk "BEGIN {print $ccs_m / $m}")
-proportion_2l_a=$(awk "BEGIN {print $ccs_a / $a}")
-proportion_2l_p=$(awk "BEGIN {print $ccs_p / $p}")
+proportion_2l_m=$(awk "BEGIN {print $hap2l_m / $m}")
+proportion_2l_a=$(awk "BEGIN {print $hap2l_a / $a}")
+proportion_2l_p=$(awk "BEGIN {print $hap2l_p / $p}")
 
 #output in easily readable format
 echo "The proportion of hap1 reads that align to the hap2 longest utg assembly is $proportion_2l_p" >> "$out/proportion.txt"
