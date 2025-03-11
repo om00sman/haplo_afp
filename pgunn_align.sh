@@ -35,24 +35,14 @@ export TMPDIR=/hb/scratch/$USER
 
 #pull hap1 reads from file
 
-seqkit grep -f  seqs.fq.gz -o result.fq.gz
+seqkit grep -f "$out/${name}_p_a.txt" "$out/${name}_combined.fastq.gz" -o "$out/${name}_hap1_reads.fastq.gz"
 
+###alignment to simulated switch err
 
-###alignment to hap1 shortest utg
-
-pbmm2 align --sort "$in/ldear__hap1_shortest.fasta" $file "$out/${name}_hap1s_alignment.sorted.bam"
+pbmm2 align --sort "$out/pgunn_sim_sw_err.fasta" "$out/${name}_hap1_reads.fastq.gz" "$out/${name}_hap1_sim_sw_err_alignment.sorted.bam"
 
 #index output
 
-samtools index "$out/${name}_hap1s_alignment.sorted.bam"
+samtools index "$out/${name}_hap1_sim_sw_err_alignment.sorted.bam"
 
-#filter by reads aligning to each haplotype and index output
-
-samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_hap1s_alignment.sorted.bam" > "$out/${name}_hap1s_m_a_alignment.sorted.bam"
-
-samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_hap1s_alignment.sorted.bam" > "$out/${name}_hap1s_p_a_alignment.sorted.bam"
-
-samtools index "$out/${name}_hap1s_m_a_alignment.sorted.bam"
-
-samtools index "$out/${name}_hap1s_p_a_alignment.sorted.bam"
 
