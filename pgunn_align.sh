@@ -38,7 +38,7 @@ export TMPDIR=/hb/scratch/$USER
 
 seqkit grep -f "$out/${name}_p_a.txt" "$out/${name}_combined.fastq.gz" -o "$out/${name}_hap1_reads.fastq.gz"
 
-###alignment to simulated switch err
+#alignment to simulated switch err
 
 pbmm2 align --sort "$out/pgunn_sim_sw_err.fasta" "$out/${name}_hap1_reads.fastq.gz" "$out/${name}_hap1_sim_sw_err_alignment.sorted.bam"
 
