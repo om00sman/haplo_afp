@@ -18,6 +18,7 @@
 
 # loading required modules + conda environment
 
+module load seqkit
 module load samtools
 module load miniconda3
 conda activate pbmm2 
