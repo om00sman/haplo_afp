@@ -27,12 +27,16 @@ conda activate pbmm2
 name=p_gunnellus
 in=/hb/groups/kelley_training/owen/zoarcoidei/data/assemblies/$name
 out=/hb/groups/kelley_training/owen/zoarcoidei/analysis/realignment/$name
-file=/hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz
+file1=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '1p')
+file2=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '2p')
 
 
 #set the tmpdir
 
 export TMPDIR=/hb/scratch/$USER
+
+zcat $file1 $file2 | gzip > merged.gz
+
 
 ###alignment to hap1 shortest utg
 
