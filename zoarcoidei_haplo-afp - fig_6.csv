@@ -1,0 +1,26 @@
+species,array,haplotype,median,min,max
+Anarhichas minor,ancestral,hap1,5.5,5,6
+Anarhichas minor,ancestral,hap2,4,4,4
+Anarhichas minor,trans1,hap1,1,1,1
+Anarhichas minor,trans1,hap2,1,1,1
+Anarhichas minor,trans2,hap1,1,1,1
+Anarhichas minor,trans2,hap2,1,1,1
+Anarhichas lupus,ancestral,Unresolved,6,5,11
+Anarhichas lupus,trans1,hap1,12,12,12
+Anarhichas lupus,trans1,hap2,8,8,8
+Anarhichas lupus,trans2,hap1,1,1,1
+Anarhichas lupus,trans2,hap2,1,1,1
+Zoarces americanus,ancestral,Unresolved,6,5,7
+Zoarces americanus,trans1,hap1,10,8,12
+Zoarces americanus,trans1,hap2,2,2,2
+Lycodichthys dearborni ,ancestral,hap1,50.5,48,53
+Lycodichthys dearborni ,ancestral,hap2,44,37,45
+Leptoclinus maculatus,ancestral,hap1,4,4,5
+Leptoclinus maculatus,ancestral,hap2,2,2,2
+Leptoclinus maculatus,trans1,Unresolved,100,50,114
+Leptoclinus maculatus,trans2,hap1,8,8,8
+Leptoclinus maculatus,trans2,hap2,8,8,8
+Pholis gunnellus,ancestral,hap1,10,10,10
+Pholis gunnellus,ancestral,hap2,14,14,14
+Cebidichthys violaceus,no AFPs,,,,
+Cebidichthys violaceus,no AFPs,,,,
