@@ -22,7 +22,7 @@ library(fishtree)
 ```{r}
 ##fig4 hist
 
-fig4 <- read_excel("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (6).xlsx", sheet = "fig4graph")
+fig4 <- read("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (6).xlsx", sheet = "fig4graph")
 
 #order species by their appearance in the data set rather than alphabetically
 
@@ -90,9 +90,9 @@ hap_afp_tree$tip.label <- paste0("italic('", hap_afp_tree$tip.label, "')")
 
 # Plot tree to see if it looks accurate
 tree_panel <- ggtree(hap_afp_tree) + 
-  geom_tiplab(fontface = "italic", parse = TRUE, size = 7) + 
+  geom_tiplab(fontface = "italic", parse = TRUE, size = 5) + 
   theme_tree2() +
-  geom_tree(size = 1.5) +
+  geom_tree(size = 1) +
   labs(x = "Mya") +
   theme(
     axis.title.x = element_text(size = 20),
@@ -111,7 +111,7 @@ tree_panel
 
 #import data
 
-haplo_afp <- read_excel("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (17).xlsx", sheet = "fig_6")
+haplo_afp <- read.csv("~/Documents/GitHub/haplo_afp/zoarcoidei_haplo-afp - fig_6.csv")
 
 #order species by their appearance in the data set rather than alphabetically
 
@@ -127,35 +127,31 @@ dotplot <- ggplot(haplo_afp, aes(
                               x = median,
                               y = interaction(array, species), 
                               colour = haplotype)) +
-  geom_point(position = position_dodge(width = 0.8), size = 4) +
+  geom_point(position = position_dodge(width = 0.8), size = 3) +
   geom_errorbar(aes(
                 xmin = min, xmax = max), 
                 width = 0, 
-                size = 1.8, 
+                size = 1, 
                 position = position_dodge(width = 0.8, preserve = "total")) +
-  scale_x_continuous(breaks = seq(0, 130, by = 10)) +
+  scale_x_continuous(breaks = seq(0, 130, by = 20)) +
   scale_y_discrete(limits = rev) +
-  labs(y = "", x = "AFP Count") +
-  scale_color_manual(values = c("hap1" = "#D71920", "hap2" = "#5BCBF5")) +
+  labs(y = "", x = "AFP copy number", color = "Haplotype") +
+  scale_color_manual(values = c("hap1" = "#D71920", "hap2" = "#5BCBF5", "Unresolved" = "black")) +
   
   # Add group labels
-  geom_text(aes(x = -20, label = array), hjust = 0.25, size = 7, color = "black") +
+  geom_text(aes(x = -20, label = array), hjust = 0.25, size = 5, color = "black") +
 
   # Use facets to separate species but remove labels
   facet_wrap(~ species, scales = "free_y", ncol = 1) +
 
   # adjust theme
-  theme_classic() +
+  theme_classic(base_size = 20) +
   theme(strip.text = element_blank(),  # Remove facet labels
         panel.spacing = unit(0.5, "lines"),  # Increase spacing between species
         axis.text.y = element_blank(),  # Remove y-axis text
         axis.ticks.y = element_blank(),  # Remove y-axis ticks
-        axis.title.x = element_text(size = 20),# change size of x axis text
-        axis.text.x = element_text(size = 15),
         legend.position = "inside",
-        legend.position.inside = c(0.92,0.92),
-        legend.title = element_text(size = 20),
-        legend.text = element_text(size = 20),
+        legend.position.inside = c(0.8,0.8),
         plot.margin = margin(5, 10, 5, 0))
 
 #combine plots
@@ -163,6 +159,11 @@ dotplot <- ggplot(haplo_afp, aes(
 fig6 <- cowplot::plot_grid(tree_panel, dotplot, rel_widths = c(1,1.5))
 
 fig6
+
+ggsave(fig6,
+       units = "in", width = 12, height = 6, 
+       filename = "~/Documents/GitHub/haplo_afp/fig6.png",
+       bg = "white")
 
 ##export size is 1400x900##
 ```
