@@ -21,7 +21,7 @@ mkdir -p /hb/scratch/omoosman/sra
 cd /hb/scratch/omoosman/sra
 
 #prefetch accession into scratch
-prefetch "$id" --max-size 100g  -O /hb/scratch/omoosman/sra 
+prefetch "$id" --max-size 100g  -O /hb/scratch/$USER 
 
 #convert to fastq from scratch directory 
 fasterq-dump "$id"   
