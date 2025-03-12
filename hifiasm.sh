@@ -23,7 +23,7 @@ out=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
 file1=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '1p')
 file2=$(ls /hb/groups/kelley_training/owen/zoarcoidei/data/raw_hifi/$name/*.fastq.gz | sed -n '2p')
 
-export TMPDIR=/hb/scratch/omoosman/switch_err
+export TMPDIR=/hb/scratch/$USER
 
 # Make out directory and move to directory with input files
 mkdir -p "$out"
