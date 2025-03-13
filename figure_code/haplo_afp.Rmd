@@ -84,6 +84,8 @@ summary(error_brm)
 
 plot(error_brm)
 
+conditional_effects(error_brm)
+
 
 
 ```
