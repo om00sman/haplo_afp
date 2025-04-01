@@ -24,5 +24,7 @@ Raw HiFi BAM and FASTQ for Lycodicthys dearborni and Zoarces americanus are avai
 
 ### 1. genome_assembly_annotation
 sra_accession.sh: Bash script used to download raw reads and Hi-C data from NCBI Sequence Read Archive using sratoolkit v3.0.0. 
+
+hifiasm.sh: Assembly of raw Hifi reads using hifiasm v0.19.9. 
 ### 2. analysis
 ### 3. figure_code
