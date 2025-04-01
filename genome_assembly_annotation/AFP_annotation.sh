@@ -37,7 +37,7 @@ gfatools gfa2fa "$in/${name}_hifi.asm.bp.r_utg.gfa" > "$in/${name}_r_utg.fasta"
 
 conda deactivate
 
-#exonerate query
+#exonerate query for AFPs 
 
 conda activate exonerate
 
