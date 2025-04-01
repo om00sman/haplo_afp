@@ -21,30 +21,6 @@ library(brms)
 ```
 
 ```{r}
-##fig4 hist
-
-fig4 <- read("C:/Users/omoos/Downloads/zoarcoidei_haplo-afp (6).xlsx", sheet = "fig4graph")
-
-#order species by their appearance in the data set rather than alphabetically
-
-fig4$Species <- factor(fig4$Species, levels = unique(fig4$Species))
-
-#graph
-
-p <- ggplot(fig4, aes(x = Haplotype, fill = Type)) + 
-  geom_bar(stat = "count") +
-  geom_text(stat = "count", aes(label = ..count..), position = position_stack(vjust = 0.5)) +
-  facet_wrap(~Species, ncol = 1) +
-  theme(strip.text.x = element_blank(), panel.grid.major = element_blank(),    panel.grid.minor = element_blank()) +
-  labs(y = "", x = "",) +
-  scale_fill_manual(values = c("hap1v" = "#ED1C24", "hap2v" = "#00AEEF", "hap1m"="#F69D9F"))
-  theme_minimal()
-  
-ggsave(plot = p, height = 5, width = 3, filename = "fig4plot.png" )
-
-```
-
-```{r}
 #fig s1
 
 #import data
@@ -92,7 +68,7 @@ conditional_effects(error_brm)
 
 
 ```{r}
-#fig6 tree
+#fig5 tree
 hap_afp_tree <- fishtree_phylogeny(
   c("Lycodichthys dearborni", "Zoarces americanus", "Leptoclinus maculatus",
     "Pholis gunnellus", "Cebidichthys violaceus", "Anarhichas minor", "Anarhichas lupus"),
@@ -124,7 +100,7 @@ tree_panel
 ```
 
 ```{r}
-##fig6 dotplot
+##fig5 dotplot
 
 #import data
 
@@ -173,11 +149,11 @@ dotplot <- ggplot(haplo_afp, aes(
 
 #combine plots
 
-fig6 <- cowplot::plot_grid(tree_panel, dotplot, rel_widths = c(1,1.5))
+fig5 <- cowplot::plot_grid(tree_panel, dotplot, rel_widths = c(1,1.5))
 
-fig6
+fig5
 
-ggsave(fig6,
+ggsave(fig5,
        units = "in", width = 12, height = 6, 
        filename = "~/Documents/GitHub/haplo_afp/fig6.png",
        bg = "white")
