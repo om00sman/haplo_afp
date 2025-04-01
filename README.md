@@ -2,7 +2,9 @@ Authors
 ---
 
 Owen Moosman, University of California, Santa Cruz, Department of Molecular, Cell, & Developmental Biology
+
 Samuel Bogan, University of California, Santa Cruz, Department of Ecology and Evolutionary Biology
+
 Joanna Kelley, University of California, Santa Cruz, Department of Ecology and Evolutionary Biology
 
 Description
