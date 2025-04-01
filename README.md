@@ -10,7 +10,7 @@ Joanna Kelley, University of California, Santa Cruz, Department of Ecology and E
 
 ## Description
 
-This repository contains code used by Owen Moosman, Samuel Bogan, and Joanna Kelley for analyzing copy number variation of antifreeze protein genes between haplotypes of polar fish in the suborder Zoarcoidei. Bioinformatic tools developed and used for this analysis can be found elsewhere. *gfa_parser* is hosted and described at the Github repository https://github.com/snbogan/gfa_parser. *switch_error_screen* is hosted and described at the Github repository https://github.com/snbogan/switch_error_screen. All R scripts were run using R version 4.3.2. 
+This repository contains code used by Owen Moosman, Samuel Bogan, and Joanna Kelley for analyzing copy number variation of antifreeze protein (AFP) genes between haplotypes of polar fish in the suborder Zoarcoidei. Bioinformatic tools developed and used for this analysis can be found elsewhere. *gfa_parser* is hosted and described at the Github repository https://github.com/snbogan/gfa_parser. *switch_error_screen* is hosted and described at the Github repository https://github.com/snbogan/switch_error_screen. All R scripts were run using R version 4.3.2. 
 
 This research was funded by the United States National Science Foundation, Office of Polar programs award number 2312253 
 
@@ -30,5 +30,8 @@ hifiasm.sh: Bash script for assembly of raw Hifi reads using hifiasm v0.19.9.
 hifiasm_hi_C.sh: Bash script for assembly of *Cryptacanthodes maculatus* genome with Hi-C data using hifiasm v0.19.9. 
 
 trimgalore_hi_c.sh: Bash script used to trim raw *Cryptacanthodes maculatus* Hi-C data before assembly using trimgalore v0.6.10
+
+AFP_annotation.sh: Bash script for conversion of hifiasm output .gfa to .fasta and annotation of AFP III genes. haplotype 1 and haplotype 2 phased .gfa files and the raw unitig .gfa were converted to .fasta format using gfatools v0.5. Annotations of AFP III genes were performed using Exonerate v2.4.0 with a query sequence of the translated *Macrozoarces americanus* AFP (
+
 ### 2. analysis
 ### 3. figure_code
