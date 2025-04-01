@@ -37,3 +37,5 @@ Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are 
 
 ### 2. analysis
 ### 3. figure_code
+**haplo_afp.Rmd**: R markdown file containing all code used for figures 5 and S1. 
+
