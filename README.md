@@ -33,5 +33,7 @@ Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are 
 
 **AFP_annotation.sh**: Bash script for conversion of hifiasm output .gfa to .fasta and annotation of AFP III genes. haplotype 1 and haplotype 2 phased .gfa files and the raw unitig .gfa are converted to .fasta format using gfatools v0.5. Then, annotations of AFP III genes are performed using Exonerate v2.4.0 with a query sequence of the translated *Macrozoarces americanus* AFP (Mamericanus_AFP.txt)
 
+**flanking_gene_annotation.sh**: Bash script for the annotation of flanking genes to the ancestral AFP array in Zoarcoidei. Annotation of the upstream *sncgb* gene in the haplotype-phased and unitig .fasta is performed using Exonerate v2.4.0 with a query *Gasterosteus aculeatus sncgb* protein sequence (Gacul_sncgb.fa). The same annotation is then performed with a query protein sequence of the *G. aculetaus ldg3b* gene (Gacul_ldb3b.fa), which is downstream of the ancestral array. 
+
 ### 2. analysis
 ### 3. figure_code
