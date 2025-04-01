@@ -26,5 +26,7 @@ Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are 
 sra_accession.sh: Bash script used to download raw reads and Hi-C data from NCBI Sequence Read Archive using sratoolkit v3.0.0. 
 
 hifiasm.sh: Bash script for assembly of raw Hifi reads using hifiasm v0.19.9. 
+
+hifiasm_hi_C.sh: Bash script for assembly of *Cryptacanthodes maculatus* genome with Hi-C data using hifiasm v0.19.9. 
 ### 2. analysis
 ### 3. figure_code
