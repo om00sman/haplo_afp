@@ -28,5 +28,7 @@ sra_accession.sh: Bash script used to download raw reads and Hi-C data from NCBI
 hifiasm.sh: Bash script for assembly of raw Hifi reads using hifiasm v0.19.9. 
 
 hifiasm_hi_C.sh: Bash script for assembly of *Cryptacanthodes maculatus* genome with Hi-C data using hifiasm v0.19.9. 
+
+trimgalore_hi_c.sh: Bash script used to trim raw *Cryptacanthodes maculatus* Hi-C data before assembly using trimgalore v0.6.10
 ### 2. analysis
 ### 3. figure_code
