@@ -10,7 +10,7 @@ Joanna Kelley, University of California, Santa Cruz, Department of Ecology and E
 
 ## Description
 
-This repository contains code used by Owen Moosman, Samuel Bogan, and Joanna Kelley for analyzing copy number variation of antifreeze protein genes between haplotypes of polar fish in the suborder Zoarcoidei. Bioinformatic tools developed and used for this analysis can be found elsewhere. *gfa_parser* is hosted and described at the Github repository https://github.com/snbogan/gfa_parser. *switch_error_screen* is hosted and described at the Github repository https://github.com/snbogan/switch_error_screen.
+This repository contains code used by Owen Moosman, Samuel Bogan, and Joanna Kelley for analyzing copy number variation of antifreeze protein genes between haplotypes of polar fish in the suborder Zoarcoidei. Bioinformatic tools developed and used for this analysis can be found elsewhere. *gfa_parser* is hosted and described at the Github repository https://github.com/snbogan/gfa_parser. *switch_error_screen* is hosted and described at the Github repository https://github.com/snbogan/switch_error_screen. All R scripts were run using R version 4.3.2. 
 
 This research was funded by the United States National Science Foundation, Office of Polar programs award number 2312253 
 
