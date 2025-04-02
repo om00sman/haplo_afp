@@ -12,7 +12,7 @@ Joanna Kelley, University of California, Santa Cruz, Department of Ecology and E
 
 This repository contains code used by Owen Moosman, Samuel Bogan, and Joanna Kelley for analyzing copy number variation of antifreeze protein (AFP) genes between haplotypes of polar fish in the suborder Zoarcoidei. Bioinformatic tools developed and used for this analysis can be found elsewhere. *gfa_parser* is hosted and described at the Github repository https://github.com/snbogan/gfa_parser. *switch_error_screen* is hosted and described at the Github repository https://github.com/snbogan/switch_error_screen. All R scripts were run using R version 4.3.2. 
 
-This research was funded by the United States National Science Foundation, Office of Polar programs award number 2312253 
+This research was funded by the United States National Science Foundation, Office of Polar Programs (Award number 2312253) 
 
 ## Data Availabilty 
 
@@ -36,6 +36,10 @@ Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are 
 **flanking_gene_annotation.sh**: Bash script for the annotation of flanking genes to the ancestral AFP array in Zoarcoidei. Annotation of the upstream *sncgb* gene in the haplotype-phased and unitig .fasta is performed using Exonerate v2.4.0 with a query *Gasterosteus aculeatus sncgb* protein sequence (Gacul_sncgb.fa). The same annotation is then performed with a query protein sequence of the *G. aculetaus ldg3b* gene (Gacul_ldb3b.fa), which is downstream of the ancestral array. 
 
 ### 2. analysis
+**switch_error_screen.sh**:
+
+
+
 ### 3. figure_code
 **haplo_afp.Rmd**: R markdown file containing all code used for figures 5 (species tree of Zoarcoidei and dotplot of uncertatinty in AFP copy number created by misassembly) and S1 (correlation between median copy number for each AFP array and uncertainty in copy number) using copy number counts calculated by *gfa_parser* (zoarcoidei_haplo-afp - fig_5.csv). 
 
