@@ -36,7 +36,7 @@ Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are 
 **flanking_gene_annotation.sh**: Bash script for the annotation of flanking genes to the ancestral AFP array in Zoarcoidei. Annotation of the upstream *sncgb* gene in the haplotype-phased and unitig .fasta is performed using Exonerate v2.4.0 with a query *Gasterosteus aculeatus sncgb* protein sequence (Gacul_sncgb.fa). The same annotation is then performed with a query protein sequence of the *G. aculetaus ldg3b* gene (Gacul_ldb3b.fa), which is downstream of the ancestral array. 
 
 ### 2. analysis
-**switch_error_screen.sh**:
+**switch_error_screen.sh**: A bash script that extracts read phasing information from the output .gfa's of haplotypes 1 and 2, then performs a realignment of all reads to the haplotype 1 and 2 aassemblies using pbmm2 v1.14.99 (/github.com/PacificBiosciences/pbmm2), a wrapper of minimap2 optimized for alignment of HiFi reads.
 
 
 
