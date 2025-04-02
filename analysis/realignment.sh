@@ -77,11 +77,11 @@ fi
 
 #filter with samtools and index output
 
-samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_filt_AFP.bam" > "$out/${name}_filt_AFP_m_a.bam"
+samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_alignment.sorted.bam" > "$out/${name}_m_a.bam"
 
-samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_filt_AFP.bam" > "$out/${name}_filt_AFP_p_a.bam"
+samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_alignment.sorted.bam" > "$out/${name}_p_a.bam"
 
-samtools index "$out/${name}_filt_AFP_m_a.bam"
+samtools index "$out/${name}_m_a.bam"
 
 samtools index "$out/${name}_filt_AFP_p_a.bam"
 
