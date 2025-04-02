@@ -42,7 +42,7 @@ Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are 
 
 **dearborni_switch_err.sh**: A bash script similar to **switch_error_screen.sh** but that calculates the percent of reads mapped to the combined assembly and also performs a less stringent mapping. 
 
-**pgunn_align.sh**: A bash script that performs an alignment of the raw *Pholis gunnellus* reads to a 
+**pgunn_align.sh**: A bash script that performs an alignment of the raw haplotype 1 *Pholis gunnellus* reads to a reference with a simulated switch error. 
 
 ### 3. figure_code
 **haplo_afp.Rmd**: R markdown file containing all code used for figures 5 (species tree of Zoarcoidei and dotplot of uncertatinty in AFP copy number created by misassembly) and S1 (correlation between median copy number for each AFP array and uncertainty in copy number) using copy number counts calculated by *gfa_parser* (zoarcoidei_haplo-afp - fig_5.csv). 
