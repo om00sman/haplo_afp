@@ -27,8 +27,13 @@ name=z_americanus
 out=/hb/home/omoosman/owen/zoarcoidei/analysis/realignment/$name
 
 #filter with samtools and index output
-"$out/${name}_filt_AFP_p_a.bam"
 
-samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/z_americanus/z_americanus_alignment.sorted.bam h1tg000092l h1tg000766l h2tg000180l h2tg000104l -o "$out/${name}_filt_AFP_p_a.bam"
+#hap1
+samtools view -bh "$out/${name}_p_a.bam" h1tg000092l h1tg000766l -o "$out/${name}_filt_AFP_p_a.bam"
 
 samtools index "$out/${name}_filt_AFP_p_a.bam"
+
+#hap2
+samtools view -bh "$out/${name}_m_a.bam" h2tg000180l h2tg000104l -o "$out/${name}_filt_AFP_m_a.bam"
+
+samtools index "$out/${name}_filt_AFP_m_a.bam"
