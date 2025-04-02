@@ -21,6 +21,7 @@ module load miniconda3
 conda activate exonerate
 
 #filter with samtools and index output
+"$out/${name}_filt_AFP_p_a.bam"
 
 samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/z_americanus/z_americanus_alignment.sorted.bam h1tg000092l h1tg000766l h2tg000180l h2tg000104l -o /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/z_americanus/z_americanus_filt_AFP.bam
 
