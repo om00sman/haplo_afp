@@ -38,6 +38,7 @@ Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are 
 ### 2. analysis
 **switch_error_screen.sh**: A bash script that extracts read phasing information from the output .gfa's of haplotypes 1 and 2, then performs a realignment of all reads to the haplotype 1 and 2 aassemblies using pbmm2 v1.14.99 (https://github.com/PacificBiosciences/pbmm2), a wrapper of minimap2 optimized for alignment of HiFi reads.
 
+**AFP_filter.sh**: A bash script that extracts contigs containing AFPs (as determined by exonerate annotation) from the larger .bam file using samtools v1.21 (in order to reduce file size). 
 
 
 ### 3. figure_code
