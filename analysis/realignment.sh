@@ -83,7 +83,7 @@ samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_alignment.sorted.bam" 
 
 samtools index "$out/${name}_m_a.bam"
 
-samtools index "$out/${name}_filt_AFP_p_a.bam"
+samtools index "$out/${name}_p_a.bam"
 
 
 #exonerate query of combined fasta
