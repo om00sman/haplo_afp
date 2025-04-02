@@ -47,6 +47,11 @@ awk '$9 == "HG:A:p" {print $5}' "$in/${name}_hifi.asm.bp.hap1.p_ctg.noseq.gfa" >
 awk '$9 == "HG:A:p" {print $5}' "$in/${name}_hifi.asm.bp.hap2.p_ctg.noseq.gfa" > "$out/${name}_hap2_p.txt"
 cat "$out/${name}_hap1_p.txt" "$out/${name}_hap2_p.txt" > "$out/${name}_p.txt"
 
+# combine read haplotype specific read information
+
+cat "$out/${name}_m.txt" "$out/${name}_a.txt" > "$out/${name}_m_a.txt"
+cat "$out/${name}_p.txt" "$out/${name}_a.txt" > "$out/${name}_p_a.txt"
+
 #combine and index reference fasta files
 
 cat "$in/${name}_hap1_ctg.fasta" "$in/${name}_hap2_ctg.fasta" > "$in/${name}_ref.fasta"
@@ -68,6 +73,18 @@ else
     pbmm2 align "$in/${name}_ref.fasta" $file1 "$out/${name}_alignment.sorted.bam" --sort
     
 fi
+
+
+#filter with samtools and index output
+
+samtools view -bh -N "$out/${name}_m_a.txt" "$out/${name}_filt_AFP.bam" > "$out/${name}_filt_AFP_m_a.bam"
+
+samtools view -bh -N "$out/${name}_p_a.txt" "$out/${name}_filt_AFP.bam" > "$out/${name}_filt_AFP_p_a.bam"
+
+samtools index "$out/${name}_filt_AFP_m_a.bam"
+
+samtools index "$out/${name}_filt_AFP_p_a.bam"
+
 
 #exonerate query of combined fasta
 
