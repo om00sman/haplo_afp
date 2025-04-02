@@ -25,13 +25,3 @@ conda activate exonerate
 samtools view -bh /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/z_americanus/z_americanus_alignment.sorted.bam h1tg000092l h1tg000766l h2tg000180l h2tg000104l -o /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/z_americanus/z_americanus_filt_AFP.bam
 
 samtools index /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/z_americanus/z_americanus_filt_AFP.bam
-
-exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt \
-  --target /hb/home/omoosman/owen/zoarcoidei/data/assemblies/z_americanus/z_americanus_ref.fasta \
-  --showtargetgff TRUE \
-  --showquerygff FALSE \
-  --minintron 0 \
-  --maxintron 10000 \
-  --showalignment TRUE --showcigar FALSE \
-  --ryo "Query: %qi Length: %ql Strand: %qs Target: %ti Range: %tcb-%tce\n" \
-  > /hb/home/omoosman/owen/zoarcoidei/analysis/realignment/z_americanus/z_americanus_AFP_annotations.gff
