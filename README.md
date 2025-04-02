@@ -40,6 +40,9 @@ Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are 
 
 **AFP_filter.sh**: A bash script that extracts contigs containing AFPs (as determined by exonerate annotation) from the larger .bam file using samtools v1.21 (in order to reduce file size). 
 
+**dearborni_switch_err.sh**: A bash script similar to **switch_error_screen.sh** but that calculates the percent of reads mapped to the combined assembly and also performs a less stringent mapping. 
+
+**pgunn_align.sh**: A bash script that performs an alignment of the raw *Pholis gunnellus* reads to a 
 
 ### 3. figure_code
 **haplo_afp.Rmd**: R markdown file containing all code used for figures 5 (species tree of Zoarcoidei and dotplot of uncertatinty in AFP copy number created by misassembly) and S1 (correlation between median copy number for each AFP array and uncertainty in copy number) using copy number counts calculated by *gfa_parser* (zoarcoidei_haplo-afp - fig_5.csv). 
