@@ -17,8 +17,6 @@
 #load module
 
 module load samtools
-module load miniconda3
-conda activate exonerate
 
 #define variables
 
