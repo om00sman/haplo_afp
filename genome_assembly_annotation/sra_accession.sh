@@ -17,8 +17,7 @@ name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file" | awk '{print $2}')
 module load sratoolkit
 
 #make required directory and move to it
-mkdir -p /hb/scratch/omoosman/sra
-cd /hb/scratch/omoosman/sra
+cd /hb/scratch/$USER 
 
 #prefetch accession into scratch
 prefetch "$id" --max-size 100g  -O /hb/scratch/$USER 
