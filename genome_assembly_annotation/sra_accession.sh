@@ -26,8 +26,8 @@ prefetch "$id" --max-size 100g  -O /hb/scratch/$USER
 fasterq-dump "$id"   
 
 #compress and copy files to correct directory
-gzip /hb/scratch/omoosman/sra/*.fastq
+gzip /hb/scratch/$USER/*.fastq
 mkdir -p /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name
-cp /hb/scratch/omoosman/sra/*.fastq.gz /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name
+cp /hb/scratch/$USER/*.fastq.gz /hb/home/omoosman/owen/zoarcoidei/data/raw_hifi/$name
 rm *.fastq.gz
 
