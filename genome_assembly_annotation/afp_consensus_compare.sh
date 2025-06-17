@@ -20,7 +20,7 @@ conda activate exonerate
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/species.txt
 name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file")
 in=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$name
-out=/hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/$name/consensus_compare
+out=/hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/$name
 
 # Create the output directory 
 
@@ -28,12 +28,12 @@ mkdir -p "$out"
 
 #exonerate query for with Mamericanus_AFP
 
-exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target "$in/${name}_hap1_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/${name}_hap1_Mamer_afp.gff"
+exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target "$in/${name}_hap1_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_hap1_Mamer_afp.gff"
 
-exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target "$in/${name}_hap2_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/${name}_hap2_Mamer_afp.gff"
+exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target "$in/${name}_hap2_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_hap2_Mamer_afp.gff"
 
 #exonerate query for consensus AFP
 
-exonerate --model protein2genome --query "$out/${name}_consensus_afp.fasta" --target "$in/${name}_hap1_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/${name}_hap1_consensus_afp.gff"
+exonerate --model protein2genome --query "$out/${name}_consensus_afp.fasta" --target "$in/${name}_hap1_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_hap1_consensus_afp.gff"
 
-exonerate --model protein2genome --query "$out/${name}_consensus_afp.fasta" --target "$in/${name}_hap2_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/${name}_hap2_consensus_afp.gff"
+exonerate --model protein2genome --query "$out/${name}_consensus_afp.fasta" --target "$in/${name}_hap2_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_hap2_consensus_afp.gff"
