@@ -37,3 +37,9 @@ exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analy
 exonerate --model protein2genome --query "$out/${name}_consensus_afp.fasta" --target "$in/${name}_hap1_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_hap1_consensus_afp.gff"
 
 exonerate --model protein2genome --query "$out/${name}_consensus_afp.fasta" --target "$in/${name}_hap2_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_hap2_consensus_afp.gff"
+
+#exonerate query for raw utg
+exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target "$in/${name}_r_utg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_utg_Mamer_afp.gff"
+
+exonerate --model protein2genome --query "$out/${name}_consensus_afp.fasta" --target "$in/${name}_r_utg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_utg_consensus_afp.gff"
+
