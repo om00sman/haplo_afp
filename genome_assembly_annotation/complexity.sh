@@ -1,4 +1,4 @@
-species=a_minor
+species=l_maculatus
 in=/hb/groups/kelley_training/owen/zoarcoidei/data/assemblies/$species
 out=/hb/home/omoosman/owen/zoarcoidei/analysis/complexity
 
