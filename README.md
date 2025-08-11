@@ -16,7 +16,7 @@ This research was funded by the United States National Science Foundation, Offic
 
 ## Data Availabilty 
 
-Raw HiFi reads were downloaded from the NCBI Sequence Read Archive for *Cebidichthys violaceus* SRR19653852 (Wright et al., 2023); *Cryptacanthodes maculatus* SRR29012721; *Leptoclinus maculatus* SRR25603844, SRR25603845; *Melanostigma gelatinosum* ERR10879927 (Bista et al., 2024); and *Pholis gunnellus* ERR6436364, ERR6412365 (Programme et al., 2022). For *Lycodopsis pacificus*, FASTQ files containing raw HiFi reads were retrieved from GenomeARK. Hi-C data for *C. maculatus* (SRX26356541) was also downloaded from the from the NCBI Sequence Read Archive. 
+Raw HiFi reads were downloaded from the NCBI Sequence Read Archive for *Leptoclinus maculatus* SRR25603844, SRR25603845; and *Pholis gunnellus* ERR6436364, ERR6412365 (Programme et al., 2022). Raw HiFi reads for the wolffishes Anarhichas lupus and Anarhichas minor were obtained from Bogan et al. (Bogan et al. 2024).
 
 Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are available on NCBI SRA under the accession PRJNA1236397 [to be unembargoed upon acceptance]. HiFi FASTQ reads can be accessed on SRA for *Anarhichas lupus* (PRJNA980960) and *Anarhichas minor* (PRJNA982125) [to be unembargoed upon acceptance]
 
@@ -27,7 +27,9 @@ Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are 
 
 **hifiasm.sh**: Bash script for assembly of raw Hifi reads using hifiasm v0.19.9. 
 
-**AFP_annotation.sh**: Bash script for conversion of hifiasm output .gfa to .fasta and annotation of AFP III genes. haplotype 1 and haplotype 2 phased .gfa files and the raw unitig .gfa are converted to .fasta format using gfatools v0.5. Then, annotations of AFP III genes are performed using Exonerate v2.4.0 with a query sequence of the translated *Macrozoarces americanus* AFP (Mamericanus_AFP.txt)
+**afp_annotation.sh**: Bash script for conversion of hifiasm output .gfa to .fasta and annotation of AFP III genes. haplotype 1 and haplotype 2 phased .gfa files and the raw unitig .gfa are converted to .fasta format using gfatools v0.5. Then, annotations of AFP III genes are performed using Exonerate v2.4.0 with a query sequence of the translated *Zoarces americanus* AFP (Mamericanus_AFP.txt)
+
+**afp_consensus_compare.txt**: Contains code to generate a consensus AFP sequence for each species based on exonerate hits generated with the *Zoarces americanus* americanus query and perform exonerate annotations with this consensus sequence. 
 
 **flanking_gene_annotation.sh**: Bash script for the annotation of flanking genes to the ancestral AFP array in Zoarcoidei. Annotation of the upstream *sncgb* gene in the haplotype-phased and unitig .fasta is performed using Exonerate v2.4.0 with a query *Gasterosteus aculeatus sncgb* protein sequence (Gacul_sncgb.fa). The same annotation is then performed with a query protein sequence of the *G. aculetaus ldg3b* gene (Gacul_ldb3b.fa), which is downstream of the ancestral array. 
 
