@@ -1,14 +1,36 @@
-#!/bin/bash
-#SBATCH --job-name=consensus_query
-#SBATCH --mail-user=omoosman@ucsc.edu
-#SBATCH --mail-type=ALL
-#SBATCH --output=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/exonerate/consensus_query_%A_%a.out
-#SBATCH --error=/hb/home/omoosman/owen/zoarcoidei/analysis/err_out/exonerate/consensus_query_%A_%a.err
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=2GB
-#SBATCH --time=0-1:00:00
+##generate consensus sequence of species AFP
+
+config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/species.txt
+name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file")
+query=/hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt
+target=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$species/${species}_p_ctg.fasta
+out=/hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/$species
+
+module load miniconda3 mafft
+conda activate exonerate
+
+#output fasta of all exonerate hits for m_americanus query sequence
+
+exonerate --model protein2genome --query $query \
+  --target $target \
+  --showtargetgff FALSE \
+  --showquerygff FALSE \
+  --showalignment FALSE \
+  --showcigar FALSE \
+  --showvulgar FALSE \
+  --ryo ">%ti|(%tab - %tae)\n%tcs\n" \
+  > "$out/${species}_seq.fasta"
+
+#remove exonerate header and footer
+sed '1,2d' "$out/${species}_seq.fasta" | sed '$d' > "$out/${species}_afpseq.fasta"
+
+#generate multiple sequence alginment
+
+mafft  --retree 2 --inputorder "$out/${species}_afpseq.fasta" "$out/${species}_mafft.fasta"
+
+cons -sequence "$out/${species}_mafft.fasta" -outseq "$out/${species}_consensus.fasta" -plurality 1 -auto
+
+##generate exonerate annotations for both consensus and z_americanus sequences
 
 #load required modules
 
