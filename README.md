@@ -27,7 +27,7 @@ Raw HiFi BAM and FASTQ for *Lycodicthys dearborni* and *Zoarces americanus* are 
 
 **hifiasm.sh**: Bash script for assembly of raw Hifi reads using hifiasm v0.19.9. 
 
-**afp_annotation.sh**: Bash script for conversion of hifiasm output .gfa to .fasta and annotation of AFP III genes. haplotype 1 and haplotype 2 phased .gfa files and the raw unitig .gfa are converted to .fasta format using gfatools v0.5. Then, annotations of AFP III genes are performed using Exonerate v2.4.0 with a query sequence of the translated *Zoarces americanus* AFP (Mamericanus_AFP.txt)
+**afp_annotation.sh**: Bash script for conversion of hifiasm output .gfa to .fasta and annotation of AFP III genes. Haplotype 1 and haplotype 2 phased .gfa files and the raw unitig .gfa are converted to .fasta format using gfatools v0.5. Then, annotations of AFP III genes are performed using Exonerate v2.4.0 with a query sequence of the translated *Zoarces americanus* AFP (Mamericanus_AFP.txt)
 
 **afp_consensus_compare.txt**: Contains code to generate a consensus AFP sequence for each species based on exonerate hits generated with the *Zoarces americanus* americanus query and perform exonerate annotations with this consensus sequence. 
 
