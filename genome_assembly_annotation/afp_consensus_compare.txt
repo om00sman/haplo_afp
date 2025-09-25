@@ -1,10 +1,14 @@
-##generate consensus sequence of species AFP
+##generate consensus sequence of species AFP##
+
+#set paths
 
 config_file=/hb/groups/kelley_training/owen/zoarcoidei/data/species.txt
 name=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$config_file")
 query=/hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt
 target=/hb/home/omoosman/owen/zoarcoidei/data/assemblies/$species/${species}_p_ctg.fasta
 out=/hb/home/omoosman/owen/zoarcoidei/analysis/exonerate/$species
+
+#load modules
 
 module load miniconda3 mafft
 conda activate exonerate
@@ -30,7 +34,7 @@ mafft  --retree 2 --inputorder "$out/${species}_afpseq.fasta" "$out/${species}_m
 
 cons -sequence "$out/${species}_mafft.fasta" -outseq "$out/${species}_consensus.fasta" -plurality 1 -auto
 
-##generate exonerate annotations for both consensus and z_americanus sequences
+##generate exonerate annotations for both consensus and z_americanus sequences ##
 
 #load required modules
 
@@ -61,6 +65,7 @@ exonerate --model protein2genome --query "$out/${name}_consensus_afp.fasta" --ta
 exonerate --model protein2genome --query "$out/${name}_consensus_afp.fasta" --target "$in/${name}_hap2_ctg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_hap2_consensus_afp.gff"
 
 #exonerate query for raw utg
+
 exonerate --model protein2genome --query /hb/home/omoosman/owen/zoarcoidei/analysis/Mamericanus_AFP.txt --target "$in/${name}_r_utg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_utg_Mamer_afp.gff"
 
 exonerate --model protein2genome --query "$out/${name}_consensus_afp.fasta" --target "$in/${name}_r_utg.fasta"  --showtargetgff TRUE --showquerygff FALSE > "$out/consensus_compare/${name}_utg_consensus_afp.gff"
