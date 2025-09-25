@@ -21,7 +21,7 @@ library(brms)
 ```
 
 ```{r}
-#fig s1
+#fig s3
 
 #import data
 
@@ -68,7 +68,7 @@ conditional_effects(error_brm)
 
 
 ```{r}
-#fig5 tree
+#fig6 tree
 hap_afp_tree <- fishtree_phylogeny(
   c("Lycodichthys dearborni", "Zoarces americanus", "Leptoclinus maculatus",
     "Pholis gunnellus", "Cebidichthys violaceus", "Anarhichas minor", "Anarhichas lupus"),
@@ -100,7 +100,7 @@ tree_panel
 ```
 
 ```{r}
-##fig5 dotplot
+##fig6 dotplot
 
 #import data
 
@@ -149,11 +149,11 @@ dotplot <- ggplot(haplo_afp, aes(
 
 #combine plots
 
-fig5 <- cowplot::plot_grid(tree_panel, dotplot, rel_widths = c(1,1.5))
+fig6 <- cowplot::plot_grid(tree_panel, dotplot, rel_widths = c(1,1.5))
 
-fig5
+fig6
 
-ggsave(fig5,
+ggsave(fig6,
        units = "in", width = 12, height = 6, 
        filename = "~/Documents/GitHub/haplo_afp/fig6.png",
        bg = "white")
